@@ -18,7 +18,6 @@ import Features from "@/pages/docs/Features";
 import Activation from "@/pages/docs/Activation";
 import DocVerification from "@/pages/docs/Verification";
 import Addresses from "@/pages/user/pro/addresses/Addresses";
-import ApiLogs from "@/pages/user/api/apiLogs/ApiLogs";
 
 const ConfirmMail = lazy(() => import("@/pages/user/auth/ConfirmMail"));
 const ForgotPasswordMail = lazy(() => import("@/pages/user/auth/ForgotPasswordMail"));
@@ -44,6 +43,7 @@ const Verification = lazy(
 );
 const Home = lazy(() => import("@/pages/user/api/home/Home"));
 const Applications = lazy(() => import("@/pages/user/api/application/Applications"));
+const ApiLogs = lazy(() => import("@/pages/user/api/apiLogs/ApiLogs"));
 
 const Wallet = lazy(() => import("@/pages/user/wallet/Wallet"));
 const Notification = lazy(() => import("@/pages/user/notification/Notification"));
