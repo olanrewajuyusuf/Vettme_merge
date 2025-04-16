@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState, ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
-// import { jwtDecode } from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import { useFetchCompany } from "@/hooks/company";
 
 // Define the structure of the context
@@ -36,30 +36,30 @@ export const UserProvider = ({ children }: UserProviderProps) => {
   const { fetchCompany } = useFetchCompany();
 
   useEffect(() => {
-    // const token = localStorage.getItem("token");
-    // const companyId = localStorage.getItem("companyId");
+    const token = localStorage.getItem("token");
+    const companyId = localStorage.getItem("companyId");
 
     // Redirect to login if token or companyId is missing
-    // if (!token || !companyId) {
-    //   navigate("/auth/login");
-    //   return;
-    // }
+    if (!token || !companyId) {
+      navigate("/auth/login");
+      return;
+    }
 
     // Validate token expiration
-    // try {
-    //   const decodedToken: { exp: number } = jwtDecode(token);
-    //   const tokenExpiry = decodedToken.exp;
-    //   const currentTime = Math.floor(Date.now() / 1000);
+    try {
+      const decodedToken: { exp: number } = jwtDecode(token);
+      const tokenExpiry = decodedToken.exp;
+      const currentTime = Math.floor(Date.now() / 1000);
 
-    //   if (currentTime > tokenExpiry) {
-    //     navigate("/auth/login");
-    //     return;
-    //   }
-    // } catch (error) {
-    //   console.error("Invalid token:", error);
-    //   navigate("/auth/login");
-    //   return;
-    // }
+      if (currentTime > tokenExpiry) {
+        navigate("/auth/login");
+        return;
+      }
+    } catch (error) {
+      console.error("Invalid token:", error);
+      navigate("/auth/login");
+      return;
+    }
 
     // Fetch company data
     const getCompany = async () => {
