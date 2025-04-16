@@ -43,7 +43,7 @@ const Verification = lazy(
 );
 const Home = lazy(() => import("@/pages/user/api/home/Home"));
 const Applications = lazy(() => import("@/pages/user/api/application/Applications"));
-const Logs = lazy(() => import("@/pages/user/api/logs/Logs"));
+const AppLogs = lazy(() => import("@/pages/user/api/logs/AppLogs"));
 
 const Wallet = lazy(() => import("@/pages/user/wallet/Wallet"));
 const Notification = lazy(() => import("@/pages/user/notification/Notification"));
@@ -194,7 +194,7 @@ export const routes = [
       },
       {
         path: "api/applications/:appId/logs",
-        element: <Logs />,
+        element: <AppLogs />,
       },
       {
         path: "wallet",
