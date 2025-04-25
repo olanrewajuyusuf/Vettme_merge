@@ -25,6 +25,7 @@ import { FaBarsProgress, FaCodeCompare } from "react-icons/fa6";
 import { GiProgression } from "react-icons/gi";
 import { AiFillProduct, AiOutlineFileProtect, AiOutlineFundProjectionScreen } from "react-icons/ai";
 import { GoProjectRoadmap } from "react-icons/go";
+import { SiWelcometothejungle } from "react-icons/si";
 
 interface LayoutProps {
   children: ReactNode;
@@ -33,6 +34,11 @@ interface LayoutProps {
 const navLinks = [
   {
     path: "/",
+    title: "Welcome!",
+    icon: <SiWelcometothejungle />,
+  },
+  {
+    path: "/dashboard",
     title: "Dashboard",
     icon: <DashboardIcon />,
   },

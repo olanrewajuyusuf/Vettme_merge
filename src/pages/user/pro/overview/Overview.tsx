@@ -132,9 +132,9 @@ export default function ProDashboard() {
             key={idx}
             className="w-full p-4 rounded-xl border-[1px] border-stroke-clr bg-white"
           >
-            <div className="w-20 h-20 grid place-items-center rounded-lg bg-gray-100 border border-stroke-clr mb-5">
+            <div className="flex justify-center items-center gap-2 mb-5">
               <span
-                className={`w-10 h-10 rounded-full flex items-center justify-center text-white ${
+                className={`w-7 h-7 rounded-full flex items-center justify-center text-white ${
                   card.bg === 1
                     ? "bg-green-600"
                     : card.bg === 2
@@ -153,9 +153,10 @@ export default function ProDashboard() {
                   : <FaRegTimesCircle />
                 }
               </span>
+              <p className="font-medium">{card.title}</p>
             </div>
-            <p className="font-medium">{card.title}</p>
-            <h1 className="mt-4">{card.qty}</h1>
+            <div className="h-24 bg-[#f5f5f5] rounded-md text-3xl font-semibold border border-stroke-clr grid place-items-center">{card.qty}</div>
+            {/* <h1 className="mt-4"></h1> */}
           </div>
         ))}
       </div>

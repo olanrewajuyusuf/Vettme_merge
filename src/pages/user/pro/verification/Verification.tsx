@@ -52,32 +52,33 @@ export default function Verification() {
   const [percentage, setPercentage] = useState<any | null>(null);
   const [searchParams, setSearchParams] = useSearchParams();
   const filter = searchParams.get("filter") || "all";
-  const [form, setForm] = useState<any>(null)
+  const [form, setForm] = useState<any>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!id) {
+      // Skip the API call if id is undefined
       console.warn("ID is missing.");
       return;
     }
 
     const getForm = async () => {
-      setLoading(true);
+      setLoading(true); // Start loading
       try {
         const data = await axios.get(`${baseUrl}/verification/form/${id}`);
-        setForm(data.data.data.fields);
+        setForm(data.data.data.fields); // Update form state with the response
       } catch (err) {
         console.error(err);
       } finally {
-        setLoading(false);
+        setLoading(false); // End loading
       }
     };
 
     getForm();
-  }, [id]);
+  }, [id]); // Re-run when id changes
 
    // Log form data when it changes
-  useEffect(() => {
+   useEffect(() => {
     if (form) {
       console.log(form); // Logs updated form data after state change
     }
@@ -205,19 +206,19 @@ const filteredBatches = batchesResponse
           <p className="text-sm">Date Created: {moment(cards?.createdAt).calendar()}</p>
         </div>
         <div className="flex items-center gap-2">
-          {(form?.piPhysicalAddressRequest || form?.giPhysicalAddressRequest1 || form?.giPhysicalAddressRequest2 || form?.giPhysicalAddressRequest3 || form?.giPhysicalAddressRequest4) && 
-            <Link to={`/pro/verifications/${id}/physicalAddressVerifications`}>
-              <Button className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-all ml-auto block">
-                Physical Address Verification
-              </Button>
-            </Link> 
-          }
           <Button
             className="gap-2 bg-gray-200 text-base-clr hover:bg-gray-300"
             onClick={handleCopy}
           >
             <CopyIcon /> Copy Form Link
           </Button>
+          {(form?.piPhysicalAddressRequest || form?.giPhysicalAddressRequest1 || form?.giPhysicalAddressRequest2 || form?.giPhysicalAddressRequest3 || form?.giPhysicalAddressRequest4) && 
+            <Link to={`/pro/verifications/${id}/physicalAddressVerifications`}>
+              <Button variant="outline">
+                Physical Address Verification
+              </Button>
+            </Link>
+          }
         </div>
       </div>
 

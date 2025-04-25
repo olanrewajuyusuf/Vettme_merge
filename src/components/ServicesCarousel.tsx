@@ -18,9 +18,9 @@ export function ServicesCarousel() {
   )
 
   const services = [
-    {name: "Vettme Basic", icon: <FaBarsProgress />},
-    {name: "Vettme PRO", icon: <GiProgression />},
-    {name: "Vettme API", icon: <FaLaptopCode />},
+    {name: "Vettme Basic", icon: <FaBarsProgress />, image: "/public/service1.png", color: "bg-destructive"},
+    {name: "Vettme PRO", icon: <GiProgression />, image: "/public/service2.png", color: "bg-purple-500"},
+    {name: "Vettme API", icon: <FaLaptopCode />, image: "/public/service3.png", color: "bg-blue-500"},
   ]
 
   return (
@@ -28,14 +28,17 @@ export function ServicesCarousel() {
       plugins={[plugin.current]}
       className="w-full max-w-xs"
     >
-      <CarouselContent>
+      <CarouselContent >
         {services.map((service, index) => (
           <CarouselItem key={index}>
             <div className="p-1">
-              <Card>
-                <CardContent className="aspect-square text-center p-8">
-                    <h3 className="text-2xl">{service.name}</h3>
-                    <span className="roll h-full text-9xl text-gray-300 flex items-center justify-center">{service.icon}</span>
+              <Card className="overflow-hidden">
+                <CardContent className={`relative ${service.color} aspect-square text-center p-8 flex flex-col-reverse items-center justify-between`}>
+                  <div className="shadow-3d flex flex-col items-center justify-center gap-2 p-3 rounded-lg">
+                    <h3 className=" text-white uppercase">{service.name}</h3>
+                    <span className="roll h-full text-5xl text-gray-300">{service.icon}</span>
+                  </div>
+                  <img src={service.image} alt="services image" className="absolute top-0 w-full h-[150px]"/>
                 </CardContent>
               </Card>
             </div>

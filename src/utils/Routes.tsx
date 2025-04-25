@@ -29,6 +29,7 @@ const ResetPassword = lazy(() => import("@/pages/user/auth/ResetPassword"));
 const Login = lazy(() => import("@/pages/user/auth/Login"));
 const Register = lazy(() => import("@/pages/user/auth/Register"));
 
+const WelcomePage = lazy(() => import("@/pages/user/welcome-page/WelcomePage"));
 const Dashboard = lazy(() => import("@/pages/user/dashboard/Dashboard"));
 const BasicHome = lazy(() => import("@/pages/user/basic/overview/Home"));
 const Vett = lazy(() => import("@/pages/user/basic/vett/Verifications"));
@@ -146,6 +147,10 @@ export const routes = [
     children: [
       {
         path: "",
+        element: <WelcomePage />,
+      },
+      {
+        path: "dashboard",
         element: <Dashboard />,
       },
       {

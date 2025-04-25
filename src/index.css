@@ -116,13 +116,14 @@ p {
 }
 
 .blue-red-gradient {
-  background: linear-gradient(240deg, #ff4444, blue, #ff4444);
+  background: linear-gradient(240deg, #ff4444, #0000ff, #ff4444);
   background-size: 200% 200%;
   transition: background-position 0.3s ease-in-out;
 }
-
-.blue-red-gradient:hover {
-  background-position: 100% 200%;
+.blue-blue-gradient {
+  background: linear-gradient(240deg, #24248b, #0000ff, #050533);
+  background-size: 200% 200%;
+  transition: background-position 0.3s ease-in-out;
 }
 
 .red-gradient {
@@ -131,7 +132,7 @@ p {
   transition: background-position 0.3s ease-in-out;
 }
 
-.red-gradient:hover {
+.red-gradient:hover, .blue-red-gradient:hover, .blue-blue-gradient:hover {
   background-position: 100% 200%;
 }
 
@@ -183,6 +184,30 @@ a.nav-link.active .nav-icon {
   .text-input {
     @apply w-full h-[50px] border-[1px] border-stroke-clr rounded-[10px] bg-white p-4;
   }
+}
+
+.bg-img {
+  position: relative;
+  z-index: 2;
+  background-image: url(/public/auth_img.webp);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+.bg-img::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: rgba(255, 255, 255, .9);
+  z-index: -1;
+}
+
+.shadow-3d {
+  box-shadow: 5px 5px 15px rgb(0, 0, 0, .5), -5px -5px 5px rgba(255, 255, 255, .1);
+}
+.slide {
+  background: linear-gradient(to right, red, red 30%, rgb(195, 7, 195) 30%, rgb(195, 7, 195) 80%, rgb(47, 47, 254) 80%);
 }
 
 /* Spinner style */

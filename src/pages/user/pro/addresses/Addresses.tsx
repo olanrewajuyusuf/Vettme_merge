@@ -17,6 +17,10 @@ import { SearchIcon } from "lucide-react";
 import { usePagination } from "@/hooks/usePagination";
 import Pagination from "@/components/pagination";
 import { useFetchAddresses } from "@/hooks/company";
+import { baseUrl } from "@/api/baseUrl";
+import { Button } from "@/components/ui/button";
+import { FaFileDownload } from "react-icons/fa";
+import toast from "react-hot-toast";
 
 interface AddressesProps {
     id: string,
@@ -37,7 +41,8 @@ const Addresses = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const [searchQuery, setSearchQuery] = useState("");
     const filter = searchParams.get("filter") || "all";
-    const {id} = useParams()
+    const token = localStorage.getItem("token");
+    const {id} = useParams();
 
     useEffect(() => {
         const getAddresses = async () => {
@@ -109,10 +114,61 @@ const Addresses = () => {
 
     const { currentPage, totalPages, paginatedData, handlePageChange } = usePagination(filteredAddresses);
 
+    // Download verification details into excel sheet
+    const downloadExcel = async () => {
+        try {
+            const response = await fetch(`${baseUrl}/address-verification/download`, {
+                method: "POST",
+                headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify({ formId: id }),
+            });
+    
+            if (!response.ok) {
+                throw new Error("Failed to download file");
+            }
+    
+            // Convert response to a Blob (binary large object)
+            const blob = await response.blob();
+        
+            // Create a temporary URL for the Blob
+            const url = window.URL.createObjectURL(blob);
+        
+            // Create an invisible link element and trigger the download
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "address_verifications.xlsx"; // File name
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url); // Clean up memory
+            toast.success("File downloaded successfully!");
+        } catch (error) {
+            toast.error("Error downloading file. Please try again.");
+            console.error("Error downloading file:", error);
+        }
+    };
+
     return (
         <div>
-            <h1 className="font-normal">Addresses</h1>
-            <p className="mb-10">Manage all Personnel's addresses to be verified or already verified.</p>
+            <div className="flex justify-between items-start mb-10">
+                <div>
+                    <h1 className="font-normal">Physical Address Verification</h1>
+                    <p>Manage all your physical address verifications here.</p>
+                </div>
+                <div className="w-[200px] bg-white p-3 rounded-md border border-stroke-clr">
+                    <p>Download the verified Addresses bellow.</p>
+                    <Button
+                        onClick={() => downloadExcel()}
+                        className="blue-blue-gradient text-white font-bold py-2 px-4 rounded mt-3 flex items-center gap-1"
+                    >
+                        <FaFileDownload />
+                        Download
+                    </Button>
+                </div>
+            </div>
             <div className="w-full bg-white rounded-xl border-[1px] border-stroke-clr overflow-hidden">
                 {/* Filter and Search */}
                 <div className="flex justify-between items-center py-4 border-b-[1px] border-stroke-clr px-5">
