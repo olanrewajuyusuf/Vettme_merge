@@ -18,9 +18,9 @@ export function ServicesCarousel() {
   )
 
   const services = [
-    {name: "Vettme Basic", icon: <FaBarsProgress />, image: "/public/service1.png", color: "bg-destructive"},
-    {name: "Vettme PRO", icon: <GiProgression />, image: "/public/service2.png", color: "bg-purple-500"},
-    {name: "Vettme API", icon: <FaLaptopCode />, image: "/public/service3.png", color: "bg-blue-500"},
+    {name: "Vettme Basic", icon: <FaBarsProgress />, image: "/service1.png", color: "bg-destructive"},
+    {name: "Vettme PRO", icon: <GiProgression />, image: "/service2.png", color: "bg-purple-500"},
+    {name: "Vettme API", icon: <FaLaptopCode />, image: "/service3.png", color: "bg-blue-500"},
   ]
 
   return (

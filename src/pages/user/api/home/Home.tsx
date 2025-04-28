@@ -1,6 +1,7 @@
 import DashboardChart from "@/components/api/DashboardChart";
 import DashboardRecent from "@/components/api/DashboardRecent";
 import CreateAppModal from "@/components/api/modal/CreateAppModal";
+import ToggleAPIEnv from "@/components/ToggleAPIEvn";
 import { Button } from "@/components/ui/button";
 
 import { useState } from "react";
@@ -24,9 +25,7 @@ export default function Home() {
             SANDBOX
           </div>
         )} */}
-        <div className="px-2 py-0.5 rounded-full bg-red-200 text-[10px] font-medium cursor-pointer">
-          SANDBOX
-        </div>
+        <ToggleAPIEnv />
         <div className="flex items-center gap-6">
           <p>Quick Actions:</p>
           <div className="flex items-center gap-4">

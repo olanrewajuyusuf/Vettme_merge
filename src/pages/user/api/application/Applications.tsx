@@ -24,6 +24,7 @@ import DeleteAppModal from "@/components/api/modal/DeleteAppModal";
 import Loader from "@/components/api/Loader";
 import EmptyState from "@/components/api/EmptyState";
 import { application } from "@/lib/placeholder";
+import ToggleAPIEnv from "@/components/ToggleAPIEvn";
 
 interface App {
   companyId: string;
@@ -93,9 +94,7 @@ export default function Applications() {
                 SANDBOX
               </div>
             )} */}
-            <div className="px-2 py-0.5 rounded-full bg-red-200 text-[10px] font-medium cursor-pointer">
-              SANDBOX
-            </div>
+            <ToggleAPIEnv />
           </div>
         </div>
         <Button className="bg-blue-600 hover:bg-blue-700" onClick={() => setCreateModal(true)}>

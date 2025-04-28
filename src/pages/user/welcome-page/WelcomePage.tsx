@@ -42,7 +42,7 @@ export default function WelcomePage() {
       </Card>
       <Card className="overflow-hidden">
         <div className="w-full h-[200px]">
-          <img src="/public/wallet.jpg" alt="wallet" className="w-full h-full object-cover" />
+          <img src="/wallet.jpg" alt="wallet" className="w-full h-full object-cover" />
         </div>
         <CardTitle className="px-5 pt-7 text-blue-400 text-lg flex items-center gap-1 mb-5"><MdAccountBalanceWallet/> Wallet</CardTitle>
         <CardContent>
