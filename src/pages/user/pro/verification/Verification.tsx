@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/hooks/use-toast";
 import { CopyIcon } from "@radix-ui/react-icons";
 import { useEffect, useState } from "react";
 import {
@@ -20,6 +19,7 @@ import { usePagination } from "@/hooks/usePagination";
 import Pagination from "@/components/pagination";
 import axios from "axios";
 import { baseUrl } from "@/api/baseUrl";
+import { handleCopy } from "@/lib/copy";
 
 interface ResponseProps {
   id: string,
@@ -41,7 +41,7 @@ interface CardsProps {
 
 export default function Verification() {
   const { id } = useParams();
-  const { toast } = useToast();
+  // const { toast } = useToast();
   const [ batchesResponse, setBatchesResponse ] = useState<ResponseProps[] | null>(null);
   const [ cards, setCards ] = useState<CardsProps | null>(null);
   const { fetchBatchesResponse } = useFetchBatchesResponse();
@@ -156,23 +156,6 @@ const filteredBatches = batchesResponse
 
   //Form link copying logic
   const url = window.location.hostname + `/forms/${id}`;
-
-  const handleCopy = () => {
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(url).then(() => {
-        toast({
-          title: "URL Copied!",
-          description: "The for URL has been copied to your clipboard",
-        });
-      });
-    } else {
-      toast({
-        variant: "destructive",
-        title: "That didn't work!",
-        description: "We need permission to write to your clipboard",
-      });
-    }
-  };
   
   const headers = [
     {
@@ -208,7 +191,7 @@ const filteredBatches = batchesResponse
         <div className="flex items-center gap-2">
           <Button
             className="gap-2 bg-gray-200 text-base-clr hover:bg-gray-300"
-            onClick={handleCopy}
+            onClickCapture={() => handleCopy({title: url, descSuccess: "Form link Copied!", descFailed: "That didn't work!"})}
           >
             <CopyIcon /> Copy Form Link
           </Button>

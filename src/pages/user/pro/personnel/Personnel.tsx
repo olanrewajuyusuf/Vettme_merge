@@ -48,10 +48,15 @@ export default function Personnel() {
   const params = useParams();
   const { fetchVerdict } = useFetchVerdict();
 
+  console.log(state);
+  console.log(findings);
+  
+
   useEffect(() => {
     const getFinding = async () => {
       try {
         const data = await fetchFinding(state.id);
+        console.log(data);
         setFindings(data);
       } catch (error) {
         console.error("Failed to get Finding:", error);
@@ -185,7 +190,7 @@ export default function Personnel() {
 
   return (
     <>
-    {isLoading && <PersonnelInfoSkeleton />}
+    {isLoading && !isError && <PersonnelInfoSkeleton />}
     {isError && <div>{isError}</div>}
     {!isLoading && (
     <>

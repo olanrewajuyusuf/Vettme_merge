@@ -264,23 +264,23 @@ export default function DashboardLayout({ children }: LayoutProps) {
                   <IoMedal className="text-orange-500"/>
               </div>
             <div className="flex items-center gap-1">
-              <div className="bg-green-600 rounded-full px-2 py-4 h-7 flex items-center overflow-hidden">
-                <span className="text-white text-xl"><MdAccountBalanceWallet /></span>
-                <span className="text-white mx-2">{balance.toLocaleString()}</span>
+              <div className="bg-green-600 rounded-full px-2 py-0 h-7 flex items-center overflow-hidden">
+                <span className="text-white text-sm"><MdAccountBalanceWallet /></span>
+                <span className="text-white text-sm mx-1">{balance.toLocaleString()}</span>
                 <FaPlusCircle 
-                // onClick={() => setTopupModalOpen(true)}
-                className="text-white text-xl ml-2 cursor-pointer"
+                onClick={() => setTopupModalOpen(true)}
+                className="text-white text-lg ml-2 cursor-pointer"
                 />
               </div>
               <div className="relative cursor-pointer" onClick={()=>navigate('/notifications')} >
-                <IoMdNotificationsOutline className="text-3xl"/>
+                <IoMdNotificationsOutline className="text-2xl"/>
                 {(unreadCount !== 0) && <div 
-                className="absolute top-0 -right-1 w-4 h-4 bg-destructive rounded-full text-white grid place-items-center text-xs font-bold"
+                className="absolute top-0 -right-1 w-4 h-4 bg-destructive rounded-full text-white text-xs grid place-items-center"
                 >
                 {unreadCount}
                 </div>}
               </div>
-              <span className="w-[35px] h-[35px] rounded-full grid place-items-center text-white border-[1px] ml-2 bg-blue-400">
+              <span className="w-[35px] h-[35px] rounded-full grid place-items-center text-white text-sm border-[1px] border-blue-700 ml-2 bg-blue-400">
                 {company?.companyName.slice(0, 2).toUpperCase()}
               </span>
                 {/* <Popover>

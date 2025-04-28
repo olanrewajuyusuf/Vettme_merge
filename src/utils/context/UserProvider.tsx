@@ -64,9 +64,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     // Fetch company data
     const getCompany = async () => {
       try {
-        const data = await fetchCompany();
-        console.log(data);
-        
+        const data = await fetchCompany();        
         setCompany(data.result.user);
         setBalance(data.result.user.balance);
       } catch (error) {

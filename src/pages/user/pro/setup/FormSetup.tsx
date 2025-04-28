@@ -279,9 +279,9 @@ const Form = () => {
                   required
                 >
                   <option value="">Choose Verification Type</option>
-                  <option value="PERSONNEL">Professional Verification</option>
+                  <option value="PROFESSIONAL">Professional Verification</option>
                   <option value="LOAN">Loan Verification</option>
-                  <option value="CRIMINALRECORD">
+                  <option value="LOGISTICS">
                     Logistics Driver Verification
                   </option>
                 </select>

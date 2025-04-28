@@ -64,7 +64,7 @@ export default function FormCreation({ isOpen, createdForm }: DialogModal) {
           >
             Copy Form URL
           </Button>
-          <Link to="/verifications">
+          <Link to="/pro/verifications">
             <Button className="red-gradient">
               Return to Verifications Page
             </Button>
