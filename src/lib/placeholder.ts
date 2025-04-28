@@ -130,7 +130,7 @@ export const application = {
     data: [
       {
         name: "Test",
-        companyId: "1",
+        userId: "1",
         id: "4508374f-77be-4956-bcdd-a83b067e8554",
         createdAt: "20/12/2024, 11:12 AM",
         public_key: "public_iYzZKh2iJuYWsWZ2_key",
@@ -168,7 +168,7 @@ export const application = {
       },
       {
         name: "Sample App",
-        companyId: "2",
+        userId: "2",
         id: "dB08374f-77be-4956-bcdd-a83b067e8009",
         createdAt: "20/12/2024, 11:12 AM",
         public_key: "public_iYzZKh2iJuYWsWZ2_key",
@@ -206,7 +206,7 @@ export const application = {
       },
       {
         name: "Vettme",
-        companyId: "3",
+        userId: "3",
         id: "cf08374f-77be-4956-bcdd-a83b067ec419a",
         createdAt: "20/12/2024, 11:12 AM",
         public_key: "public_iYzZKh2iJuYWsWZ2_key",
@@ -216,7 +216,7 @@ export const application = {
       },
       {
         name: "Test App",
-        companyId: "4",
+        userId: "4",
         id: "j4V2374f-77be-4956-bcdd-a83b067e85ff",
         createdAt: "20/12/2024, 11:12 AM",
         public_key: "public_iYzZKh2iJuYWsWZ2_key",

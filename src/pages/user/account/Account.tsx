@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 interface company{
   id: string,
   companyName: string,
-  companyId: string,
+  userId: string,
   address: string
 }
 
@@ -26,19 +26,19 @@ interface formData2 {
 
 
 export default function Account() {
-  const companyId = localStorage.getItem("companyId")
+  const userId = localStorage.getItem("userId")
   const usertoken = localStorage.getItem("token")
   const [companyData, setCompanyData] = useState<company>({
     id: "",
     companyName: "",
-    companyId: "",
+    userId: "",
     address: ""
   })
 
   useEffect(() => {
     const getCompany = async() => {
       try{
-        const res = await axios.get(`${baseUrl}/company/${companyId}`, 
+        const res = await axios.get(`${baseUrl}/company/${userId}`, 
         {
           headers: {
           Authorization: `Bearer ${usertoken}`
@@ -52,10 +52,10 @@ export default function Account() {
       }
     }
     getCompany()
-  }, [companyId, usertoken])
+  }, [userId, usertoken])
 
   const [formData, setFormData] = useState<formData>({
-    id: `${companyId}`,
+    id: `${userId}`,
     companyName: `${companyData.companyName}`,
     address: `${companyData.address}`
   })
@@ -87,7 +87,7 @@ export default function Account() {
     e.preventDefault();
     try {
       await axios.put(
-        `${baseUrl}/company/${companyId}`,
+        `${baseUrl}/company/${userId}`,
         formData,
         {
           headers: {
@@ -134,7 +134,7 @@ export default function Account() {
       </label>
       <label className="block w-full mb-4">
         <p>Company ID</p>
-        <Input type="text" disabled placeholder={companyData.companyId} />
+        <Input type="text" disabled placeholder={companyData.userId} />
       </label>
       <label className="block w-full mb-4">
         <p>Company Address</p>

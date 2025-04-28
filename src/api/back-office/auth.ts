@@ -20,10 +20,12 @@ export const AdminLogin = async (
       });
 
       navigate("/back-office");
+      console.log(res);
+      
       
       // Save token to local storage
       const token = res.data.token;
-      const id = res.data.company.id;
+      const id = res.data.user.id;
 
       sessionStorage.setItem("adminToken", token);
       sessionStorage.setItem("adminId", id);

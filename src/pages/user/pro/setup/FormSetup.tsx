@@ -96,7 +96,7 @@ const Form = () => {
   const [creationModalActive, setCreationModalActive] = useState(false);
   const [createdForm, setCreatedForm] = useState<any | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const companyId = localStorage.getItem("companyId");
+  const userId = localStorage.getItem("userId");
   const [selectedFields, setSelectedFields] = useState<string[]>([]);
   const [totalCost, setTotalCost] = useState(0);
   const { fetchCompany } = useFetchCompany();
@@ -112,7 +112,7 @@ const Form = () => {
     priNumberofProfessionalReferences: 0,
     cost: totalCost,
     status: "PENDING",
-    companyId: `${companyId}`,
+    userId: `${userId}`,
   });
 
   // Function to update cost dynamically
@@ -210,7 +210,7 @@ const Form = () => {
     const getCompany = async () => {
       try {
         const data = await fetchCompany();
-        setBalance(data.result.company.balance);
+        setBalance(data.result.user.balance);
       } catch (error) {
         console.error("Failed to fetch company info:", error);
       }

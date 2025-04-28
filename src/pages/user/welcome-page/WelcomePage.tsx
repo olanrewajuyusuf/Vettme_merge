@@ -26,7 +26,7 @@ export default function WelcomePage() {
       <Card className="bg-img border border-stroke-clr p-8 col-span-2 flex justify-start items-center">
         <div className="w-1/2">
           <CardTitle>
-            <h1>Welcome to <span className="text-destructive">Vettme</span>!</h1>
+            Welcome to <span className="text-destructive">Vettme</span>!
           </CardTitle>
           <CardDescription className="my-5 mr-7">
             Your best 3 in 1 verification solution.<br/> Gives control to the information
@@ -68,9 +68,9 @@ export default function WelcomePage() {
           <MdLock className="text-7xl text-orange-900 absolute"/>
         </div>
         <div className="px-5 py-10">
-          <h3 className="text-blue-400 text-[16px] flex items-center gap-1 mb-5">
+          <span className="text-blue-400 text-[16px] font-bold flex items-center gap-1 mb-5">
             Data Protection Commitment
-          </h3>
+          </span>
           <p>We are committed to safeguarding our customers' personal 
             information with the highest standards of security and confidentiality.
           </p>
@@ -81,7 +81,7 @@ export default function WelcomePage() {
           <Card key={ind} className="p-5">
             <CardTitle className="text-blue-400">
               <span className="mb-5 bg-black">{service.icon}</span>
-              <h3 className="mt-3">{service.name}</h3>
+              <span className="mt-3 text-[16px]">{service.name}</span>
             </CardTitle>
             <p className="mt-5 text-gray-500">{service.content}</p>
           </Card>

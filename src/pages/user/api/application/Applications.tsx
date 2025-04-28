@@ -27,7 +27,7 @@ import { application } from "@/lib/placeholder";
 import ToggleAPIEnv from "@/components/ToggleAPIEvn";
 
 interface App {
-  companyId: string;
+  userId: string;
   createdAt: string;
   id: string;
   name: string;

@@ -69,7 +69,7 @@ const DashboardCards = () => {
     const getCardsData = async () => {
       try {
         const data = await fetchCardsData();        
-        setCard(data.data);
+        setCard(data.data);        
       } catch (error) {
         console.error("Failed to fetch cards data:", error);
       }
@@ -77,8 +77,8 @@ const DashboardCards = () => {
 
     const getCompanyInfo = async () => {
       try {
-        const data = await fetchCompany();        
-        const company = data.result.companies
+        const data = await fetchCompany();   
+        const company = data.result.users
         const active = company.filter((item: any)=> item.isActive).length
         const inactive = company.filter((item: any)=> !item.isActive).length
         setCompanies(company.length);

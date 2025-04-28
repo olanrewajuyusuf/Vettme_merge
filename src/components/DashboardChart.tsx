@@ -36,20 +36,20 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export default function DashboardChart() {
-  const companyId = localStorage.getItem("companyId")
+  const userId = localStorage.getItem("userId")
   const [chartData, setChartData] = useState()
 
   useEffect(() => {
     const getChartData = async() => {
       try{
-        const res = await axios.get(`${baseUrl}/verification/month/${companyId}`)
+        const res = await axios.get(`${baseUrl}/verification/month/${userId}`)
         setChartData(res.data.data)        
       } catch(err){
         console.error(err);
       }
     }
     getChartData()
-  }, [companyId])
+  }, [userId])
   
   return (
     <ChartContainer config={chartConfig} className="h-full w-full">

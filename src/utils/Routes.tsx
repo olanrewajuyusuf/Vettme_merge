@@ -288,7 +288,7 @@ export const routes = [
         element: <AllChats />
       },
       {
-        path: "all-chats/:companyId",
+        path: "all-chats/:userId",
         element: <SupportAdmin />
       },
       {

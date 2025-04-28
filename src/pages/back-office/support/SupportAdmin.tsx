@@ -28,7 +28,7 @@ const SupportAdmin = () => {
 	const adminId = sessionStorage.getItem("adminId")
 	// const adminToken = localStorage.getItem("adminToken")
   const [conversationId, setConversationId] = useState();
-  const {companyId} = useParams()
+  const {userId} = useParams()
   const [messages, setMessages] = useState<Message[]>([]);
   const [socket, setSocket] = useState<Socket | null>(null);
   const [text, setText] = useState("");
@@ -40,7 +40,7 @@ const SupportAdmin = () => {
     const getConversation = async () => {
       try {
         const res = await axios.get(
-          `https://vettme-api-2h3d.onrender.com/conversation/find/${adminId}/${companyId}`
+          `https://vettme-api-2h3d.onrender.com/conversation/find/${adminId}/${userId}`
         );
         setConversationId(res.data.data.id);
         console.log(res.data.data.id);
@@ -111,7 +111,7 @@ const SupportAdmin = () => {
     if (socket) {
       socket.emit("SendMessage", {
         senderId: adminId,
-        receiverId: companyId,
+        receiverId: userId,
         text,
       });
     }

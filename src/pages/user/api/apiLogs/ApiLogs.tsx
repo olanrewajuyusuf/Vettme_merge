@@ -44,7 +44,7 @@ interface Log {
 }
 
 interface App {
-  companyId: string;
+  userId: string;
   createdAt: string;
   id: string;
   name: string;

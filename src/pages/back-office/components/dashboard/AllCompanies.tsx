@@ -46,7 +46,7 @@ interface CompanyProps {
       const getCompanyInfo = async () => {
         try {
           const data = await fetchCompany();
-          setCompanyInfo(data.result.companies);
+          setCompanyInfo(data.result.users);
         } catch (error) {
           console.error("Failed to fetch company info:", error);
           setError("Failed to fetch Company")
@@ -92,24 +92,24 @@ interface CompanyProps {
     const { currentPage, totalPages, paginatedData, handlePageChange } = usePagination(filteredCompany);
 
     //Activation handler
-    const handleActivate = async (companyId: string) => {
+    const handleActivate = async (userId: string) => {
         try {
-            await activateCompany({companyId});
+            await activateCompany({userId});
             const updatedCompanies = await fetchCompany();
-            setCompanyInfo(updatedCompanies.result.companies);
+            setCompanyInfo(updatedCompanies.result.users);
         } catch (error: any) {
             console.error("Failed to activate company:", error.message);
         }
     };
 
     //Delete handler
-    const handleDelete = async (companyId: string) => {
+    const handleDelete = async (userId: string) => {
       console.log("delete");
       
       try {
-          await deleteCompany(companyId);
+          await deleteCompany(userId);
           const updatedCompanies = await fetchCompany();
-          setCompanyInfo(updatedCompanies.result.companies);
+          setCompanyInfo(updatedCompanies.result.users);
       } catch (error: any) {
           console.error("Failed to delete company:", error.message);
       }
@@ -174,7 +174,7 @@ interface CompanyProps {
                 <TableHead className="text-white">Status</TableHead>
                 <TableHead></TableHead>
                 <TableHead className="text-white">Date Initiated</TableHead>
-                <TableHead></TableHead>
+                <TableHead className="text-white">Action</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>

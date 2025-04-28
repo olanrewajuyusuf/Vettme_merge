@@ -37,10 +37,10 @@ export const UserProvider = ({ children }: UserProviderProps) => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    const companyId = localStorage.getItem("companyId");
+    const userId = localStorage.getItem("userId");
 
-    // Redirect to login if token or companyId is missing
-    if (!token || !companyId) {
+    // Redirect to login if token or userId is missing
+    if (!token || !userId) {
       navigate("/auth/login");
       return;
     }
@@ -65,8 +65,10 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     const getCompany = async () => {
       try {
         const data = await fetchCompany();
-        setCompany(data.result.company);
-        setBalance(data.result.company.balance);
+        console.log(data);
+        
+        setCompany(data.result.user);
+        setBalance(data.result.user.balance);
       } catch (error) {
         console.error("Failed to fetch company info:", error);
       }

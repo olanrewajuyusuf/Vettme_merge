@@ -26,7 +26,7 @@ interface ArrivalMessage {
 
 const Support = () => {
   const [conversationId, setConversationId] = useState();
-  const companyId = localStorage.getItem("companyId");
+  const userId = localStorage.getItem("userId");
   const adminId = "5386a5a7-17d5-49c4-8e84-fe751d007a14";
   const [messages, setMessages] = useState<Message[]>([]);
   const [socket, setSocket] = useState<Socket | null>(null);
@@ -39,7 +39,7 @@ const Support = () => {
     const getConversation = async () => {
       try {
         const res = await axios.get(
-          `https://vettme-api-2h3d.onrender.com/conversation/find/${companyId}/${adminId}`
+          `https://vettme-api-2h3d.onrender.com/conversation/find/${userId}/${adminId}`
         );
         setConversationId(res.data.data.id);
         // console.log(res.data.data.id);
@@ -48,7 +48,7 @@ const Support = () => {
       }
     };
     getConversation();
-  }, [companyId]);
+  }, [userId]);
 
   useEffect(() => {
     const newSocket = io("https://vettme-api-2h3d.onrender.com");
@@ -79,12 +79,12 @@ const Support = () => {
 
   useEffect(() => {
     if (socket) {
-      socket.emit("addUser", companyId);
+      socket.emit("addUser", userId);
       socket.on("getUsers", (users: any[]) => {
         console.log(users);
       });
     }
-  }, [socket, companyId]);
+  }, [socket, userId]);
 
   useEffect(() => {
     const getMessages = async () => {
@@ -109,7 +109,7 @@ const Support = () => {
 
     if (socket) {
       socket.emit("SendMessage", {
-        senderId: companyId,
+        senderId: userId,
         receiverId: adminId,
         text,
       });
@@ -120,13 +120,13 @@ const Support = () => {
         "https://vettme-api-2h3d.onrender.com/message",
         {
           conversationId: conversationId,
-          sender: companyId,
+          sender: userId,
           text,
         }
       );
       setMessages((prev) => [
         ...prev,
-        { ...data.data, sender: companyId, id: uuidv4() },
+        { ...data.data, sender: userId, id: uuidv4() },
       ]);
       setText("");
     } catch (err) {
@@ -178,7 +178,7 @@ const Support = () => {
               <div
                 key={message.id}
                 className={`p-2 max-w-[45%] rounded-lg relative ${
-                  message.sender !== companyId
+                  message.sender !== userId
                     ? "bg-yellow-100 self-start sent-mssg"
                     : "bg-purple-100 self-end received-mssg"
                 }`}

@@ -142,7 +142,7 @@ export default function DashboardLayout({ children }: LayoutProps) {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('companyId');
+    localStorage.removeItem('userId');
     localStorage.removeItem('token');
     navigate('/auth/login')
   }

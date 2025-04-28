@@ -13,7 +13,7 @@ export const useFetchCompany = () => {
         throw new Error("Authentication token is missing");
       }
 
-      const res = await axios.get(`${baseUrl}/company`, {
+      const res = await axios.get(`${baseUrl}/user`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

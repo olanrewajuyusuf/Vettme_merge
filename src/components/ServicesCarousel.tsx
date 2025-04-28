@@ -35,7 +35,7 @@ export function ServicesCarousel() {
               <Card className="overflow-hidden">
                 <CardContent className={`relative ${service.color} aspect-square text-center p-8 flex flex-col-reverse items-center justify-between`}>
                   <div className="shadow-3d flex flex-col items-center justify-center gap-2 p-3 rounded-lg">
-                    <h3 className=" text-white uppercase">{service.name}</h3>
+                    <span className=" text-white uppercase">{service.name}</span>
                     <span className="roll h-full text-5xl text-gray-300">{service.icon}</span>
                   </div>
                   <img src={service.image} alt="services image" className="absolute top-0 w-full h-[150px]"/>

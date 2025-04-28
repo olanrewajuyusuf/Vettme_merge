@@ -24,10 +24,10 @@ export const Login = async (
 
       // Save company id and token to local storage
       const token = res.data.token;
-      const companyId = res.data.company.id;
+      const userId = res.data.user.id;
 
       localStorage.setItem("token", token);
-      localStorage.setItem("companyId", companyId);
+      localStorage.setItem("userId", userId);
     })
     .catch((err) => {
       toast.error(err?.response?.data?.message || "Unable to sign in", {
@@ -47,7 +47,6 @@ export const Signup = async (
   const toastId = toast.loading("Creating account...", { id: "authToast" });
   console.log(baseUrl);
   
-
   await axios
     .post(`${baseUrl}/auth/signup`, data)
     .then((res) => {

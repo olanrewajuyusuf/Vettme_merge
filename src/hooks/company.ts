@@ -8,13 +8,13 @@ export const useFetchCompany = () => {
   const fetchCompany = useCallback(async () => {
   try {
     const token = localStorage.getItem("token");
-    const id = localStorage.getItem("companyId");
+    const id = localStorage.getItem("userId");
 
     if (!token) {
       throw new Error("Authentication token is missing");
     }
 
-    const res = await axios.get(`${baseUrl}/company/${id}`, {
+    const res = await axios.get(`${baseUrl}/user/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -34,18 +34,18 @@ export const useFetchCardData = () => {
   const fetchCardData = useCallback(async () => {
     try {
       const token = localStorage.getItem("token");
-      const companyId = localStorage.getItem("companyId");
+      const userId = localStorage.getItem("userId");
 
       if (!token) {
         throw new Error("Authentication token is missing");
       }
 
-      if (!companyId) {
+      if (!userId) {
         throw new Error("Company ID is missing");
       }
 
       const res = await axios.get(
-        `${baseUrl}/verification-response/status/${companyId}`,
+        `${baseUrl}/verification-response/status/${userId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -95,14 +95,14 @@ export const useFetchBatches = () => {
   const fetchBatches = useCallback(async () => {
     try {
       const token = localStorage.getItem("token");
-      const companyId = localStorage.getItem("companyId");
+      const userId = localStorage.getItem("userId");
 
       if (!token) {
         throw new Error("Authentication token is missing");
       }
 
       const res = await axios.get(
-        `${baseUrl}/verification/${companyId}`,
+        `${baseUrl}/verification/${userId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -180,14 +180,14 @@ export const useFetchNotifications= () => {
   const fetchNotifications = useCallback(async () => {
     try {
       const token = localStorage.getItem("token");
-      const companyId = localStorage.getItem("companyId");
+      const userId = localStorage.getItem("userId");
 
       if (!token) {
         throw new Error("Authentication token is missing");
       }
 
       const res = await axios.get(
-        `${baseUrl}/notifications/${companyId}`,
+        `${baseUrl}/notifications/${userId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -240,14 +240,14 @@ export const useFetchChart= () => {
   const fetchChart = useCallback(async () => {
     try {
       const token = localStorage.getItem("token");
-      const companyId = localStorage.getItem("companyId");
+      const userId = localStorage.getItem("userId");
 
       if (!token) {
         throw new Error("Authentication token is missing");
       }
 
       const res = await axios.get(
-        `${baseUrl}/verification/month/${companyId}`,
+        `${baseUrl}/verification/month/${userId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
