@@ -10,7 +10,7 @@ import React, { SetStateAction, useState } from "react";
 import { Input } from "@/components/ui/input";
 import toast from "react-hot-toast";
 import { axiosInstance } from "@/api/axiosConfig";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "react-query";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import Spinner from "@/components/Spinner";
 
@@ -32,7 +32,7 @@ export default function CreateAppModal({
     const toastId = toast.loading("Creating App", { id: "createToast" });
 
     await axiosInstance
-      .post("/user/application", { appName })
+      .post("/v1/user/application", { appName })
       .then((res) => {
         toast.success(res?.data?.message || "Application created succesfully", {
           id: toastId,

@@ -9,14 +9,15 @@ import { ImProfile } from "react-icons/im";
 import { HiAcademicCap } from "react-icons/hi";
 import { FaPeopleArrows } from "react-icons/fa";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function WelcomePage() {
   const [topupModalOpen, setTopupModalOpen] = useState(false);
   const serviceCards = [
-      {name: "Sandbox", icon: <LuCodesandbox />, content: "Try our API testing environment."},
-      {name: "Physical Verification", icon: <ImProfile />, content: "We send trained field agents to a specified address to verify the existence and accuracy of provided information."},
-      {name: "Academic Verification", icon: <HiAcademicCap />, content: "This service ensure the authenticity of educational qualifications. Whether for employment or admissions."},
-      {name: "Professional Verification", icon: <FaPeopleArrows />, content: "This verification service confirms an individual’s work history, job title, and more from previous or current employers"},
+      {name: "Sandbox", icon: <LuCodesandbox />, link: "/api/applications", content: "Try our API testing environment with provided public key and switch to live enviroment to access private key."},
+      {name: "Physical Verification", icon: <ImProfile />, link: "/pro/verifications/new", content: "We send trained field agents to a specified address to verify the existence and accuracy of provided information."},
+      {name: "Academic Verification", icon: <HiAcademicCap />, link: "/pro/verifications/new", content: "This service ensure the authenticity of educational qualifications. Whether for employment or admissions."},
+      {name: "Professional Verification", icon: <FaPeopleArrows />, link: "/pro/verifications/new", content: "This verification service confirms an individual’s work history, job title, and more from previous or current employers"},
   ]
 
   return (
@@ -78,13 +79,15 @@ export default function WelcomePage() {
       </Card>
       <div className="col-span-2 grid grid-cols-2 gap-5">
         {serviceCards.map((service, ind) => (
-          <Card key={ind} className="p-5">
-            <CardTitle className="text-blue-400">
-              <span className="mb-5 bg-black">{service.icon}</span>
-              <span className="mt-3 text-[16px]">{service.name}</span>
-            </CardTitle>
-            <p className="mt-5 text-gray-500">{service.content}</p>
-          </Card>
+          <Link to={service.link} key={ind}>
+            <Card className="p-5 h-full hover:border hover:border-blue-400">
+              <CardTitle className="text-blue-400">
+                <span className="mb-5 bg-black">{service.icon}</span>
+                <span className="mt-3 text-[16px]">{service.name}</span>
+              </CardTitle>
+              <p className="mt-5 text-gray-500">{service.content}</p>
+            </Card>
+          </Link>
         ))}
       </div>
     </div>

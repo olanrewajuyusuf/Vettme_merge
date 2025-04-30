@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import VerificationTable from "@/components/basic/VerificationTable";
-import { VerificationsPlaceholder } from "@/lib/placeholder";
 import { Link } from "react-router-dom";
 
 export default function Vett() {
@@ -18,7 +17,7 @@ export default function Vett() {
       </div>
 
       <div className="tableHeight w-full bg-white border-[1px] border-stroke-clr rounded-xl overflow-hidden">
-        <VerificationTable VerificationsPlaceholder={VerificationsPlaceholder} />
+        <VerificationTable />
       </div>
     </div>
   );

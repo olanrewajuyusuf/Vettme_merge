@@ -1,20 +1,19 @@
 import { Button } from "@/components/ui/button";
-// import { useContext, useState } from "react";
-// import { vettPersonnel } from "./../../API/Vett";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Topbar from "@/components/basic/Topbar";
-// import { UserContext } from "@/utils/UserContext";
 import { InsufficientFundsDialog } from "@/components/basic/InsufficientFundsDialog";
 import { useState } from "react";
 import { BankCodes } from "@/lib/BankCodes";
 import { useUser } from "@/utils/context/useUser";
+import { vettPersonnel } from "@/hooks/basic/Vett";
+import { useFetchCompany } from "@/hooks/company";
 
 export default function NewVett() {
-  const { balance } = useUser();
-  // const user = useContext(UserContext).user;
-  // const [isLoading, setIsLoading] = useState(false);
+  const { balance, setBalance } = useUser();
+  const { fetchCompany } = useFetchCompany();
+  const [isLoading, setIsLoading] = useState(false);
   const [isInsufficientFunds, setIsInsufficientFunds] = useState(false);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const verificationCost = 300;
 
   const vettUser = (e: React.FormEvent<HTMLFormElement>) => {
@@ -27,9 +26,19 @@ export default function NewVett() {
     }
 
     const verificationData = Object.fromEntries(new FormData(e.currentTarget));
-    console.log(verificationData)
 
-    // vettPersonnel(verificationData, setIsLoading, navigate);
+    vettPersonnel(verificationData, setIsLoading, navigate);
+
+    // update balance after verification
+    const getCompany = async () => {
+      try {
+        const data = await fetchCompany();
+        setBalance(data.result.user.balance);
+      } catch (error) {
+        console.error("Failed to fetch company info:", error);
+      }
+    };
+    getCompany();
   };
 
   const [vettData, setVettData] = useState<string | undefined>(undefined);
@@ -172,8 +181,7 @@ export default function NewVett() {
             type="submit"
             className="mt-5 red-gradient w-full uppercase"
             size="lg"
-            // disabled={isLoading}
-            // disabled
+            disabled={isLoading}
           >
             Click to Verify
           </Button>

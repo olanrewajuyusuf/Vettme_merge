@@ -1,23 +1,23 @@
 
 import VerificationTable from "@/components/basic/VerificationTable";
-import { RecentVett } from "@/lib/placeholder";
+import { useFetchUserVerifications } from "@/hooks/basic/Vett";
+import { Verification } from "@/lib/definitions";
 import { Link } from "react-router-dom";
-// import { useFetchUserVerifications } from "@/API/Vett";
 
 export default function BasicHome() {
-  // const { data: verifications } = useFetchUserVerifications();
+  const { data: verifications } = useFetchUserVerifications();
 
-  // const successfulVetts = verifications?.filter((vett) => {
-  //   return vett.status === "success";
-  // });
+  const successfulVetts = verifications?.filter((vett: Verification) => {
+    return vett.status === "success";
+  });
 
-  // const failedVetts = verifications?.filter((vett) => {
-  //   return vett.status === "failure";
-  // });
+  const failedVetts = verifications?.filter((vett: Verification) => {
+    return vett.status === "failure";
+  });
 
   return (
     <>
-      <div className="contEl">
+      <div>
         <div className="w-full bg-white rounded-2xl p-4 border-stroke-clr border-[1px]">
           <p className="text-lg font-semibold w-full text-center mb-3">
             Verifications
@@ -26,21 +26,21 @@ export default function BasicHome() {
             <div className="flex flex-col items-center-justify-center gap-1">
               <p className="text-xs">Total</p>
               <h2 className="text-header text-center">
-                {/* {verifications?.length || "0"} */} 8
+                {verifications?.length || "0"}
               </h2>
             </div>
             <div className="w-0.5 h-10 bg-gray-200"></div>
             <div className="flex flex-col items-center-justify-center gap-1">
               <p className="text-xs">Successful</p>
               <h2 className="text-header text-center text-green-600">
-                {/* {successfulVetts?.length || "0"} */} 7
+                {successfulVetts?.length || "0"}
               </h2>
             </div>
             <div className="w-0.5 h-10 bg-gray-200"></div>
             <div className="flex flex-col items-center-justify-center gap-1">
               <p className="text-xs">Failed</p>
               <h2 className="text-header text-center text-red-clr">
-                {/* {failedVetts?.length || "0"} */} 1
+                {failedVetts?.length || "0"}
               </h2>
             </div>
           </div>
@@ -54,7 +54,7 @@ export default function BasicHome() {
             </Link>
           </div>
           <div className="tableHeightSmall">
-            <VerificationTable VerificationsPlaceholder={RecentVett} />
+            <VerificationTable isNumber={true} />
           </div>
         </div>
       </div>

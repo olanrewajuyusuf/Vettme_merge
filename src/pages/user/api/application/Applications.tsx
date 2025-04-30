@@ -7,10 +7,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-// import { useFetchApps } from "@/hooks/apps";
+import { useFetchApps } from "@/hooks/app/apps";
 import { CopyIcon, TrashIcon } from "@radix-ui/react-icons";
 import { useNavigate } from "react-router-dom";
-// import moment from "moment";
+import moment from "moment";
 import toast from "react-hot-toast";
 import { useState } from "react";
 import { TooltipProvider } from "@radix-ui/react-tooltip";
@@ -23,8 +23,7 @@ import CreateAppModal from "@/components/api/modal/CreateAppModal";
 import DeleteAppModal from "@/components/api/modal/DeleteAppModal";
 import Loader from "@/components/api/Loader";
 import EmptyState from "@/components/api/EmptyState";
-import { application } from "@/lib/placeholder";
-import ToggleAPIEnv from "@/components/ToggleAPIEvn";
+import ToggleAPIEnv from "@/components/api/ToggleAPIEvn";
 
 interface App {
   userId: string;
@@ -51,8 +50,7 @@ export default function Applications() {
   const [createModal, setCreateModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
 
-  // const { isLoading, isFetching, data: apps } = useFetchApps();
-  const { isLoading, isFetching, data: apps } = application;
+  const { isLoading, isFetching, data: apps } = useFetchApps();
 
   const copyAppId = (appId: string) => {
     navigator.clipboard
@@ -85,15 +83,6 @@ export default function Applications() {
         <div className="flex items-center gap-5">
           <h2 className="text-xl font-semibold">Applications</h2>
           <div>
-            {/* {company?.isVerified ? (
-              <div className="px-2 py-0.5 rounded-full bg-green-200 text-[10px] font-medium cursor-pointer">
-                LIVE
-              </div>
-            ) : (
-              <div className="px-2 py-0.5 rounded-full bg-red-200 text-[10px] font-medium cursor-pointer">
-                SANDBOX
-              </div>
-            )} */}
             <ToggleAPIEnv />
           </div>
         </div>
@@ -143,8 +132,7 @@ export default function Applications() {
                     </TooltipProvider>
                   </TableCell>
                   <TableCell>
-                    {/* {moment(app.createdAt).format("DD/MM/YYYY, HH:MM A")} */}
-                    {app.createdAt}
+                    {moment(app.createdAt).format("DD/MM/YYYY, HH:MM A")}
                   </TableCell>
                   <TableCell>{app.logs.length}</TableCell>
                   <TableCell>

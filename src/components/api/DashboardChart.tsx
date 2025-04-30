@@ -4,16 +4,13 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-// import { useFetchRecentActivities } from "@/hooks/apps";
-
+import { useFetchRecentActivities } from "@/hooks/app/apps";
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
 import moment from "moment";
-import { activities } from "@/lib/placeholder";
 
 export default function DashboardChart() {
-  // const { isLoading, data: recent } = useFetchRecentActivities();
-  const { isLoading, data: recent } = activities;
-
+  const { isLoading, data: recent} = useFetchRecentActivities();
+  
   const currentYear = new Date().getFullYear();
 
   const generateChartData = (recent: any[], currentYear: number) => {

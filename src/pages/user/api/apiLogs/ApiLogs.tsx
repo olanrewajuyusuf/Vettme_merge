@@ -19,7 +19,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-// import { useFetchAppLogs } from "@/hooks/apps";
+import { useFetchAppLogs } from "@/hooks/app/apps";
 import { useMemo, useState } from "react";
 import toast from "react-hot-toast";
 import moment from "moment";
@@ -29,9 +29,10 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { application } from "@/lib/placeholder";
 import Loader from "@/components/api/Loader";
 import EmptyState from "@/components/api/EmptyState";
+import ToggleAPIEnv from "@/components/api/ToggleAPIEvn";
+import { useAPIEnv } from "@/utils/context/useAPIEnv";
 
 interface Log {
   applicationId: string;
@@ -43,30 +44,14 @@ interface Log {
   environment: string;
 }
 
-interface App {
-  userId: string;
-  createdAt: string;
-  id: string;
-  name: string;
-  public_key: string;
-  private_key: string;
-  status: boolean;
-  logs: any[];
-}
-
 export default function ApiLogs() {
   const { appId } = useParams();
-
   const [privateKeyHidden, setPrivateKeyHidden] = useState(true);
-
-  // const { isLoading, isFetching, data } = useFetchAppLogs(appId!);
-  const { isLoading, isFetching, data } = application;
+  const { isLoading, isFetching, data } = useFetchAppLogs(appId!);
+  const { isLive } = useAPIEnv();
   
-  // const app = data?.app;
-  const app = data?.find((app: App) => app.id === appId);
-
-  // const logs = data?.logs;
-  const logs = app?.logs;
+  const app = data?.app;
+  const logs = data?.logs;
 
   const copyPrivateKey = () => {
     navigator.clipboard
@@ -142,7 +127,10 @@ export default function ApiLogs() {
   return (
     <>
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-xl font-semibold">API Logs - {app?.name}</h2>
+        <div className="flex items-center gap-6">
+          <h2 className="text-xl font-semibold">API Logs - {app?.name}</h2>
+          <ToggleAPIEnv />
+        </div>
 
         <Button size="default">Export</Button>
       </div>
@@ -219,9 +207,9 @@ export default function ApiLogs() {
           </div>
           <div className="flex items-center gap-3">
             <p>
-              {privateKeyHidden
-                ? app?.private_key.slice(0, 12) + "******************"
-                : app?.private_key}
+              {privateKeyHidden && isLive
+                ? app?.private_key
+                : app?.private_key.slice(0, 12) + "******************"}
             </p>
             <TooltipProvider>
               <Tooltip delayDuration={0}>
@@ -230,7 +218,7 @@ export default function ApiLogs() {
                     className="flex w-max rounded-sm p-2 cursor-pointer hover:bg-gray-100"
                     onClick={() => setPrivateKeyHidden((prev) => !prev)}
                   >
-                    {privateKeyHidden ? (
+                    {privateKeyHidden && isLive ? (
                       <EyeOpenIcon className="pointer-events-none" />
                     ) : (
                       <EyeNoneIcon className="pointer-events-none" />

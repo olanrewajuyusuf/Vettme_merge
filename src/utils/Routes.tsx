@@ -18,6 +18,7 @@ import Features from "@/pages/docs/Features";
 import Activation from "@/pages/docs/Activation";
 import DocVerification from "@/pages/docs/Verification";
 import Addresses from "@/pages/user/pro/addresses/Addresses";
+import { APIEnvProvider } from "./context/APIEnvContext";
 
 const ConfirmMail = lazy(() => import("@/pages/user/auth/ConfirmMail"));
 const ForgotPasswordMail = lazy(() => import("@/pages/user/auth/ForgotPasswordMail"));
@@ -34,6 +35,7 @@ const Dashboard = lazy(() => import("@/pages/user/dashboard/Dashboard"));
 const BasicHome = lazy(() => import("@/pages/user/basic/overview/Home"));
 const Vett = lazy(() => import("@/pages/user/basic/vett/Verifications"));
 const NewVett = lazy(() => import("@/pages/user/basic/vett/NewVett"));
+const VerificationResult = lazy(() => import("@/pages/user/basic/verification-result/VerificationResult"));
 
 const ProDashboard = lazy(() => import("@/pages/user/pro/overview/Overview"));
 const Verifications = lazy(
@@ -138,9 +140,11 @@ export const routes = [
     element: (
       <UserProvider>
         <NotificationProvider>
-        <DashboardLayout>
-          <AppIndex />
-        </DashboardLayout>
+        <APIEnvProvider>
+          <DashboardLayout>
+            <AppIndex />
+          </DashboardLayout>
+        </APIEnvProvider>
         </NotificationProvider>
       </UserProvider>
     ),
@@ -164,6 +168,10 @@ export const routes = [
       {
         path: "basic/verifications/new",
         element: <NewVett />,
+      },
+      {
+        path: "basic/verifications/result",
+        element: <VerificationResult />,
       },
       {
         path: "pro/overview",

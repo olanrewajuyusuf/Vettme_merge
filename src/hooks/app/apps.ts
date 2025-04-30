@@ -1,15 +1,16 @@
 import { axiosInstance } from "@/api/axiosConfig";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from "react-query";
 import { SetStateAction } from "react";
 import toast from "react-hot-toast";
 
 export const useFetchApps = () => {
   const fetchApps = async () => {
     try {
-      const res = await axiosInstance.get("/user/application");
+      const res = await axiosInstance.get("/v1/user/application");
 
       return await res.data;
     } catch (error) {
+      console.error(error);
       throw new Error("Failed to fetch applications");
     }
   };
@@ -25,7 +26,7 @@ export const useFetchApps = () => {
 export const useFetchAppLogs = (appId: string) => {
   const fetchLogs = async () => {
     try {
-      const res = await axiosInstance.get(`/user/application/${appId}`);
+      const res = await axiosInstance.get(`/v1/user/application/${appId}`);
       return await res.data;
     } catch (error) {
       throw new Error("Failed to fetch applications");
@@ -42,7 +43,7 @@ export const useFetchAppLogs = (appId: string) => {
 export const useFetchRecentActivities = () => {
   const fetchRecentActivities = async () => {
     try {
-      const res = await axiosInstance.get("/user/application/recent");
+      const res = await axiosInstance.get("/v1/user/application/recent");
       return await res.data;
     } catch (error) {
       throw new Error("Failed to fetch recent activities");
@@ -68,7 +69,7 @@ export const handleAppDelete = async (
   const toastId = toast.loading("Deleting App", { id: "deleteToast" });
 
   await axiosInstance
-    .delete(`/user/application/${appId}`)
+    .delete(`/v1/user/application/${appId}`)
     .then((res) => {
       toast.success(res?.data?.message || "Application deleted successfully", {
         id: toastId,

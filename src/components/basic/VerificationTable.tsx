@@ -1,4 +1,3 @@
-// import { useFetchUserVerifications } from "@/API/Vett";
 import {
   Table,
   TableBody,
@@ -7,39 +6,36 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useFetchUserVerifications } from "@/hooks/basic/Vett";
 import { RiCheckboxBlankLine } from "react-icons/ri";
-// import moment from "moment";
-// import loader from "@/assets/loader.svg";
+import moment from "moment";
+import loader from "@/assets/loader.svg";
+import { Verification } from "@/lib/definitions";
 
-// Define the type
-type Verification = {
-  title: string;
-  personnel_name: string;
-  verified_with: string;
-  status: string;
-  createdAt: string;
-  // createdAt: string | Date;
-};
+export default function VerificationTable({isNumber}: {isNumber?: boolean}) {
+  const { isLoading, data } = useFetchUserVerifications() as {
+    isLoading: boolean;
+    data: Verification[];
+  };  
 
-export default function VerificationTable({VerificationsPlaceholder}: {VerificationsPlaceholder: Verification[]}) {
-  // const { isLoading, data } = useFetchUserVerifications() as {
-  //   isLoading: boolean;
-  //   data: Verification[];
-  // };
+  const verifications = data?.sort((a, b) => {
+    const dateA = new Date(a.createdAt).getTime();
+    const dateB = new Date(b.createdAt).getTime();
+    return dateB - dateA;
+  });
+  const recentVerifications = verifications?.slice(0, 5);  
 
-  // const verifications = data;
-
-  // if (isLoading) {
-  //   return (
-  //     <div className="w-full flex flex-col items-center justify-center gap-6 py-10">
-  //       <img src={loader} alt="" className="w-10" />
-  //     </div>
-  //   );
-  // }
+  if (isLoading) {
+    return (
+      <div className="w-full flex flex-col items-center justify-center gap-6 py-10">
+        <img src={loader} alt="" className="w-10" />
+      </div>
+    );
+  }
 
   return (
     <>
-      {VerificationsPlaceholder?.length > 0 ? (
+      {verifications?.length > 0 ? (
         <Table className="min-w-max h-full">
           <TableHeader className="bg-stroke-clr text-white">
             <TableRow>
@@ -51,12 +47,7 @@ export default function VerificationTable({VerificationsPlaceholder}: {Verificat
             </TableRow>
           </TableHeader>
           <TableBody>
-            {VerificationsPlaceholder
-              .sort((a, b) => {
-                const dateA = new Date(a.createdAt).getTime();
-                const dateB = new Date(b.createdAt).getTime();
-                return dateB - dateA;
-              })
+            {(isNumber ? recentVerifications : verifications)
               .map((vett, idx) => (
                 <TableRow key={idx}>
                   <TableCell className="font-medium">{vett.title}</TableCell>
@@ -64,8 +55,7 @@ export default function VerificationTable({VerificationsPlaceholder}: {Verificat
                   <TableCell>{vett.verified_with.toUpperCase()}</TableCell>
                   <TableCell className={`${vett.status === "success" ? "text-green-600" : "text-destructive"}`}>{vett.status}</TableCell>
                   <TableCell>
-                    {/* {moment(vett.createdAt).format("MMMM Do YYYY, h:mm")} */}
-                    {vett.createdAt}
+                    {moment(vett.createdAt).format("MMMM Do YYYY, h:mm")}
                   </TableCell>
                 </TableRow>
               ))}

@@ -9,9 +9,7 @@ import {
 import Loader from "./Loader";
 import moment from "moment";
 import EmptyState from "./EmptyState";
-import { activities } from "@/lib/placeholder";
-
-// import { useFetchRecentActivities } from "@/hooks/apps";
+import { useFetchRecentActivities } from "@/hooks/app/apps";
 
 interface RecentActivityProp {
   applicationName: string;
@@ -24,16 +22,11 @@ interface RecentActivityProp {
 }
 
 export default function DashboardRecent() {
-  // const {
-  //   isLoading,
-  //   isFetching,
-  //   data: recentActivites,
-  // } = useFetchRecentActivities();
   const {
     isLoading,
     isFetching,
     data: recentActivites,
-  } = activities;
+  } = useFetchRecentActivities();
 
   return (
     <div className="bg-white rounded-xl overflow-hidden">

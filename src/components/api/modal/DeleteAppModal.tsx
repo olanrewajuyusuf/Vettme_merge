@@ -8,9 +8,9 @@ import {
 } from "@/components/ui/alert-dialog";
 import React, { SetStateAction, useState } from "react";
 import { Input } from "@/components/ui/input";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "react-query";
 import toast from "react-hot-toast";
-// import { handleAppDelete } from "@/hooks/apps";
+import { handleAppDelete } from "@/hooks/app/apps";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import Spinner from "@/components/Spinner";
 
@@ -40,9 +40,8 @@ export default function DeleteAppModal({
       return;
     }
 
-    console.log(appId, setIsLoading, setIsOpen, queryClient);
-    
-    // handleAppDelete(appId, setIsLoading, setIsOpen, queryClient);
+    // console.log(appId, setIsLoading, setIsOpen, queryClient);
+    handleAppDelete(appId, setIsLoading, setIsOpen, queryClient);
   };
 
   return (

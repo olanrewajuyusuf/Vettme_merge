@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { Switch } from "./ui/switch";
-import { Label } from "./ui/label";
+import { Switch } from "../ui/switch";
+import { Label } from "../ui/label";
+import { useAPIEnv } from "@/utils/context/useAPIEnv";
 
 export default function ToggleAPIEnv() {
-    const [isLive, setIsLive] = useState(false);
+    const {isLive, setIsLive} = useAPIEnv();
 
     return (
         <div className="flex items-center space-x-2">
