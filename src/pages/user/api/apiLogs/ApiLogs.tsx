@@ -54,14 +54,17 @@ export default function ApiLogs() {
   const logs = data?.logs;
 
   const copyPrivateKey = () => {
-    navigator.clipboard
-      .writeText(app?.private_key as string)
-      .then(() =>
-        toast.success("Application private key copied", { id: "copyToast" })
-      )
-      .catch(() =>
-        toast.error("Unable to copy application ID", { id: "copyToast" })
-      );
+    if (isLive) {
+      navigator.clipboard
+        .writeText(app?.private_key as string)
+        .then(() =>
+          toast.success("Application private key copied", { id: "copyToast" })
+        )
+        .catch(() =>
+          toast.error("Unable to copy application ID", { id: "copyToast" })
+        );
+    }
+    toast.error("Can not copy application ID on sandbox mode, Kindly switch to live", { id: "copyToast" })
   };
 
   const copyPublicKey = () => {
@@ -225,11 +228,13 @@ export default function ApiLogs() {
                     )}
                   </span>
                 </TooltipTrigger>
-                <TooltipContent className="max-w-[200px]" side="bottom">
+                <TooltipContent className="max-w-[200px] text-center" side="bottom">
                   <p>
-                    {!privateKeyHidden
-                      ? "Hide private key"
-                      : "Unmask private key."}
+                    {privateKeyHidden && isLive
+                      ? "Hide private key": 
+                      !privateKeyHidden && isLive
+                      ? "Unmask private key.": 
+                      "Switch to live to unmask private key."}
                   </p>
                 </TooltipContent>
               </Tooltip>

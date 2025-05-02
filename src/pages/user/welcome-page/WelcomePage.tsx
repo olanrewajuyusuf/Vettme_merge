@@ -8,11 +8,15 @@ import { MdAccountBalanceWallet, MdLock, MdOutlineSecurity } from "react-icons/m
 import { ImProfile } from "react-icons/im";
 import { HiAcademicCap } from "react-icons/hi";
 import { FaPeopleArrows } from "react-icons/fa";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import PromptModal from "@/components/modals/PromptModal";
+import ChatPrompt from "@/components/modals/ChatPrompt";
 
 export default function WelcomePage() {
   const [topupModalOpen, setTopupModalOpen] = useState(false);
+  const [showPrompt, setShowPrompt] = useState(false);
+
   const serviceCards = [
       {name: "Sandbox", icon: <LuCodesandbox />, link: "/api/applications", content: "Try our API testing environment with provided public key and switch to live enviroment to access private key."},
       {name: "Physical Verification", icon: <ImProfile />, link: "/pro/verifications/new", content: "We send trained field agents to a specified address to verify the existence and accuracy of provided information."},
@@ -20,10 +24,20 @@ export default function WelcomePage() {
       {name: "Professional Verification", icon: <FaPeopleArrows />, link: "/pro/verifications/new", content: "This verification service confirms an individual’s work history, job title, and more from previous or current employers"},
   ]
 
+  useEffect(() => {
+    const hasVisited = localStorage.getItem("hasVisitedDashboard");
+    if (!hasVisited) {
+      setShowPrompt(true);
+      localStorage.setItem("hasVisitedDashboard", "true");
+    }
+  }, []);
+
   return (
     <>
+    {showPrompt && <PromptModal onClose={() => setShowPrompt(false)} />}
     {<TopupModal isOpen={topupModalOpen} setIsOpen={setTopupModalOpen} />}
     <div className="grid grid-cols-3 gap-5">
+      <ChatPrompt />
       <Card className="bg-img border border-stroke-clr p-8 col-span-2 flex justify-start items-center">
         <div className="w-1/2">
           <CardTitle>

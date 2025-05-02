@@ -41,6 +41,7 @@ const navLinks = [
     path: "/dashboard",
     title: "Dashboard",
     icon: <DashboardIcon />,
+    id: "overview-tab",
   },
   {
     title: "Vettme Basic",
@@ -159,7 +160,7 @@ export default function DashboardLayout({ children }: LayoutProps) {
             <img src={images.logo} alt="Vettme" className="h-8" />
           </div>
 
-          <div className="px-5 h-[calc(100%-70px)] flex flex-col justify-between overflow-scroll">
+          <div id="sidebar" className="px-5 h-[calc(100%-70px)] flex flex-col justify-between overflow-scroll">
             <div className="mt-6">
               {navLinks.map((link, idx) => {
                 const hasSubTabs = link.subTab1 || link.subTab2;
@@ -222,6 +223,7 @@ export default function DashboardLayout({ children }: LayoutProps) {
                       </>
                     ) : (
                       <NavLink
+                        id={link.id}
                         to={link.path}
                         className={({ isActive }) =>
                           `flex items-center gap-3 px-5 py-3 rounded-lg ${
@@ -264,15 +266,18 @@ export default function DashboardLayout({ children }: LayoutProps) {
                   <IoMedal className="text-orange-500"/>
               </div>
             <div className="flex items-center gap-1">
-              <div className="bg-green-600 rounded-full px-2 py-0 h-7 flex items-center overflow-hidden">
+              <div 
+              id="topup-button"
+              onClick={() => setTopupModalOpen(true)}
+              className="bg-green-600 rounded-full px-2 py-0 h-7 flex items-center overflow-hidden"
+              >
                 <span className="text-white text-sm"><MdAccountBalanceWallet /></span>
                 <span className="text-white text-sm mx-1">{balance.toLocaleString()}</span>
                 <FaPlusCircle 
-                onClick={() => setTopupModalOpen(true)}
                 className="text-white text-lg ml-2 cursor-pointer"
                 />
               </div>
-              <div className="relative cursor-pointer" onClick={()=>navigate('/notifications')} >
+              <div id="notification-button" className="relative cursor-pointer" onClick={()=>navigate('/notifications')} >
                 <IoMdNotificationsOutline className="text-2xl"/>
                 {(unreadCount !== 0) && <div 
                 className="absolute top-0 -right-1 w-4 h-4 bg-destructive rounded-full text-white text-xs grid place-items-center"
@@ -280,7 +285,11 @@ export default function DashboardLayout({ children }: LayoutProps) {
                 {unreadCount}
                 </div>}
               </div>
-              <span className="w-[35px] h-[35px] rounded-full grid place-items-center text-white text-sm border-[1px] border-blue-700 ml-2 bg-blue-400">
+              <span 
+              id="profile-button" 
+              onClick={()=>navigate('/account')}
+              className="w-[35px] h-[35px] rounded-full grid place-items-center text-white text-sm border-[1px] border-blue-700 ml-2 bg-blue-400 cursor-pointer"
+              >
                 {company?.companyName.slice(0, 2).toUpperCase()}
               </span>
                 {/* <Popover>
