@@ -191,7 +191,7 @@ const filteredBatches = batchesResponse
         <div className="flex items-center gap-2">
           <Button
             className="gap-2 bg-gray-200 text-base-clr hover:bg-gray-300"
-            onClickCapture={() => handleCopy({title: url, descSuccess: "Form link Copied!", descFailed: "That didn't work!"})}
+            onClickCapture={() => handleCopy(url, "Form link")}
           >
             <CopyIcon /> Copy Form Link
           </Button>
