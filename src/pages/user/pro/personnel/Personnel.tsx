@@ -34,6 +34,8 @@ import {
   professionalInput2,
 } from "@/utils/field";
 import { PersonnelInfoSkeleton } from "@/components/SkeletonUi";
+import { Button } from "@/components/ui/button";
+import PhysicalVettRequestModal from "@/components/modals/PhysicalVettRequestModal";
 
 export default function Personnel() {
   const location = useLocation();
@@ -43,20 +45,16 @@ export default function Personnel() {
   const [ratings, setRatings] = useState<"" | any>(0);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState('');
+  const [requestModalOpen, setRequestModalOpen] = useState(false);
   const { fetchFinding } = useFetchFinding();
   const { fetchVerificationRating } = useFetchVerificationRating();
   const params = useParams();
-  const { fetchVerdict } = useFetchVerdict();
-
-  console.log(state);
-  console.log(findings);
+  const { fetchVerdict } = useFetchVerdict()
   
-
   useEffect(() => {
     const getFinding = async () => {
       try {
-        const data = await fetchFinding(state.id);
-        console.log(data);
+        const data = await fetchFinding(params.personnel_id as string);
         setFindings(data);
       } catch (error) {
         console.error("Failed to get Finding:", error);
@@ -65,9 +63,8 @@ export default function Personnel() {
 
     const getVerdict = async () => {
       try {
-        const data = await fetchVerdict(state.id);
+        const data = await fetchVerdict(params.personnel_id as string);
         setVerdicts(data.results);
-        console.log(data.results)
       } catch (error) {
         console.error("Failed to get Verdict:", error);
       }
@@ -91,7 +88,6 @@ export default function Personnel() {
     getRating();
   }, [
     fetchFinding,
-    state.id,
     fetchVerdict,
     fetchVerificationRating,
     params.personnel_id,
@@ -102,7 +98,7 @@ export default function Personnel() {
   const headers = [
     {
       title: "Status",
-      text: state.status,
+      text: state?.status,
     },
     {
       title: "Verification Rating",
@@ -119,14 +115,14 @@ export default function Personnel() {
   ];
 
   const personalInformation = getFilteredObjects(
-    state.responses,
+    state?.responses,
     findings,
     personalInput,
     "pi",
     verdicts
   );
   const guarantorInformation = getFilteredObjects(
-    state.responses,
+    state?.responses,
     findings,
     guarantorInput1,
     "gi",
@@ -134,7 +130,7 @@ export default function Personnel() {
     "1"
   );
   const guarantorInformation2 = getFilteredObjects(
-    state.responses,
+    state?.responses,
     findings,
     guarantorInput2,
     "gi",
@@ -142,7 +138,7 @@ export default function Personnel() {
     "2"
   );
   const guarantorInformation3 = getFilteredObjects(
-    state.responses,
+    state?.responses,
     findings,
     guarantorInput3,
     "gi",
@@ -150,7 +146,7 @@ export default function Personnel() {
     "3"
   );
   const guarantorInformation4 = getFilteredObjects(
-    state.responses,
+    state?.responses,
     findings,
     guarantorInput4,
     "gi",
@@ -158,14 +154,14 @@ export default function Personnel() {
     "4"
   );
   const academicInformation = getFilteredObjects(
-    state.responses,
+    state?.responses,
     findings,
     academicInput,
     "ai",
     verdicts
   );
   const professionalInformation = getFilteredObjects(
-    state.responses,
+    state?.responses,
     findings,
     professionalInput1,
     "pri",
@@ -173,7 +169,7 @@ export default function Personnel() {
     "1"
   );
   const professionalInformation2 = getFilteredObjects(
-    state.responses,
+    state?.responses,
     findings,
     professionalInput2,
     "pri",
@@ -181,7 +177,7 @@ export default function Personnel() {
     "2"
   );
   const mentalInformation = getFilteredObjects(
-    state.responses,
+    state?.responses,
     findings,
     mentalHealthInput,
     "mhi",
@@ -190,16 +186,26 @@ export default function Personnel() {
 
   return (
     <>
+    {<PhysicalVettRequestModal isOpen={requestModalOpen} setIsOpen={setRequestModalOpen} state={state} />}
     {isLoading && !isError && <PersonnelInfoSkeleton />}
     {isError && <div>{isError}</div>}
     {!isLoading && (
     <>
-      <div className="mb-[30px] flex justify-between items-center">
+      <div className="mb-[30px] flex justify-between items-start">
         <div>
           <h2>{state.responses.piFullname ? state.responses.piFullname : `${state.responses.piFirstName} ${state.responses.piMiddleName} ${state.responses.piLastName}`}</h2>
           <p className="text-sm">
             Date Created: {moment(state.submittedAt).calendar()}
           </p>
+        </div>
+        <div className="w-[250px] bg-white p-3 rounded-md border border-stroke-clr">
+            <p>Click on the button to request for Physical Address Verification.</p>
+            <Button
+                onClick={() => setRequestModalOpen(true)}
+                className="red-gradient text-white font-bold py-2 px-4 rounded mt-3 flex items-center gap-1"
+            >
+                Request
+            </Button>
         </div>
       </div>
 

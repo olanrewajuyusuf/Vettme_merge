@@ -88,7 +88,7 @@ export default function Wallet() {
         </div>
         <Button
           className="bg-white text-base-clr hover:bg-gray-100"
-          // onClick={() => setTopupModalOpen(true)}
+          onClick={() => setTopupModalOpen(true)}
         >
           <FaPlusCircle className="mr-1 text-blue-800" />
           Add to Balance

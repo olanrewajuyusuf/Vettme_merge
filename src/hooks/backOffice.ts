@@ -269,6 +269,45 @@ export const useAssignAddress = () => {
   return { assignAddress };
 };
 
+// Unassign addresses to agents
+export const useUnassignAddress = () => {
+  const unassignAddress = useCallback(
+    async (
+      data: any,
+  ) => {
+      try {
+        const token = sessionStorage.getItem("adminToken");
+
+        if (!token) {
+          throw new Error("Authentication token is missing");
+        }
+
+        const res = await axios.put(
+          `${baseUrl}/field-agent/unassign-agent`,
+          data,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        toast.success("Address(es) revoked successfully");
+        return res.data;
+      } catch (error: any) {
+        console.error("Error unassigning address");
+        toast.error(
+          error?.response?.data?.message || "Cannot unassign address"
+        ); 
+        throw new Error(
+          error?.response?.data?.message || "Cannot unassign address"
+        );
+      }
+    },[] 
+  );
+  return { unassignAddress };
+};
+
 // Getting all assigned addresses
 export const useFetchAssignedAddress = () => {
   const fetchAssignedAddress = useCallback(async (id: string) => {

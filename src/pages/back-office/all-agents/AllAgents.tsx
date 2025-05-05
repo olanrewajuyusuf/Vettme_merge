@@ -7,7 +7,7 @@ import {
     TableRow,
 } from "@/components/ui/table";
 import { useNavigate } from "react-router-dom";
-import { TrashIcon } from "@radix-ui/react-icons";
+import { CopyIcon, TrashIcon } from "@radix-ui/react-icons";
 import { useDeleteAgent, useFetchAgents } from "@/hooks/backOffice";
 import { useEffect, useState } from "react";
 import { BiPhoneIncoming } from "react-icons/bi";
@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input";
 import { VerificationSkeleton } from "@/components/SkeletonUi";
 import { usePagination } from "@/hooks/usePagination"; // Import the custom hook
 import Pagination from "@/components/pagination";
+import { handleCopy } from "@/lib/copy";
 
 interface agentsProps {
     id: string,
@@ -134,7 +135,7 @@ const AllAgents = () => {
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {paginatedData?.map((agent: agentsProps) => (
+                            {paginatedData?.map((agent: agentsProps, ind: number) => (
                                 <TableRow
                                     key={agent.id}
                                     onClick={() => navigate(`agent-info/${agent.id}`)}
@@ -143,7 +144,7 @@ const AllAgents = () => {
                                         <div
                                             className={`w-6 h-6 grid place-items-center text-white rounded-md bg-purple-600`}
                                         >
-                                            {agent.agentName.slice(0, 2)}
+                                            {(currentPage - 1) * 10 + (ind + 1)}
                                         </div>
                                         <span>{agent.agentName}</span>
                                     </TableCell>
@@ -151,7 +152,19 @@ const AllAgents = () => {
                                     <TableCell className="text-gray-400">{agent.email}</TableCell>
                                     <TableCell className="text-gray-400">{agent.state}</TableCell>
                                     <TableCell className="text-gray-400">{agent.lga}</TableCell>
-                                    <TableCell className="flex items-center gap-1"><BiPhoneIncoming className="text-blue-400" />{agent.phone_number}</TableCell>
+                                    <TableCell>
+                                        <div 
+                                        className="flex items-center gap-1 cursor-pointer"
+                                        onClick={(e)=> {
+                                            e.stopPropagation();
+                                            handleCopy(agent.phone_number as string, "Phone number")
+                                        }}
+                                        >
+                                            <BiPhoneIncoming className="text-blue-400" />
+                                            {agent.phone_number}
+                                            <CopyIcon className="ml-3"/>
+                                        </div>
+                                    </TableCell>
                                     <TableCell>
                                         <div
                                             className="cursor-pointer text-destructive text-xs px-4 flex items-center gap-1"

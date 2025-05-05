@@ -17,6 +17,7 @@ import { Input } from "@/components/ui/input";
 import { SearchIcon } from "lucide-react";
 import { usePagination } from "@/hooks/usePagination";
 import Pagination from "@/components/pagination";
+import moment from "moment";
 
 interface AddressesProps {
     id: string,
@@ -27,6 +28,7 @@ interface AddressesProps {
     lga: string,
     address: string,
     status: string,
+    createdAt: string,
 }
 
 const AllAddresses = () => {
@@ -67,21 +69,28 @@ const AllAddresses = () => {
             .filter((address) => {
                 const query = searchQuery.toLowerCase();
                 return (
-                    address.personnelName.toLowerCase().includes(query) ||
-                    address.country.toLowerCase().includes(query) ||
-                    address.state.toLowerCase().includes(query) ||
-                    address.lga.toLowerCase().includes(query)
+                address.personnelName.toLowerCase().includes(query) ||
+                address.country.toLowerCase().includes(query) ||
+                address.state.toLowerCase().includes(query) ||
+                address.lga.toLowerCase().includes(query)
                 );
             })
             .filter((batch) =>
-                filter === "pending" ? batch.status === "PENDING" :
-                filter === "failed" ? batch.status === "FAILED" :
-                filter === "submitted" ? batch.status === "SUBMITTED" :
-                filter === "in_progress" ? batch.status === "INPROGRESS" :
-                filter === "verified" ? batch.status === "VERIFIED" :
-                true
+                filter === "pending"
+                ? batch.status === "PENDING"
+                : filter === "failed"
+                ? batch.status === "FAILED"
+                : filter === "submitted"
+                ? batch.status === "SUBMITTED"
+                : filter === "in_progress"
+                ? batch.status === "INPROGRESS"
+                : filter === "verified"
+                ? batch.status === "VERIFIED"
+                : true
             )
+            .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()) // Sort by latest first
         : null;
+
 
     const noAddressMessage =
         filteredAddresses && filteredAddresses.length === 0
@@ -168,11 +177,12 @@ const AllAddresses = () => {
                                 <TableHead className="text-white">State</TableHead>
                                 <TableHead className="text-white">LGA</TableHead>
                                 <TableHead className="text-white">Address</TableHead>
+                                <TableHead className="text-white">Date created</TableHead>
                                 <TableHead className="text-white">Status</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {paginatedData.map((address) => (
+                            {paginatedData.map((address, ind) => (
                                 <TableRow
                                     key={address.id}
                                     onClick={() => navigate(`address-detail/${address.id}`)}
@@ -183,7 +193,7 @@ const AllAddresses = () => {
                                         w-7 h-7 grid place-items-center text-white uppercase rounded-sm ${address.personnelType === "guarantor" ? "bg-blue-500" : "bg-purple-600"}
                                       `}
                                       >
-                                        {address.personnelName.slice(0, 2)}
+                                        {(currentPage - 1) * 10 + (ind + 1)}
                                       </div>
                                     </TableCell>
                                     <TableCell>{address.personnelName}</TableCell>
@@ -194,6 +204,7 @@ const AllAddresses = () => {
                                     <TableCell className="text-gray-400">{address.state}</TableCell>
                                     <TableCell className="text-gray-400">{address.lga}</TableCell>
                                     <TableCell className="text-gray-400">{address.address}</TableCell>
+                                    <TableCell className="text-gray-400">{moment(address.createdAt).calendar()}</TableCell>
                                     <TableCell>
                                         <Badge className={`pointer-events-none 
                                             ${
