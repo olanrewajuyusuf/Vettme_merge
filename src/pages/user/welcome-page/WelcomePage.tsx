@@ -48,7 +48,9 @@ export default function WelcomePage() {
             and data of your Employees, Loan applicants, Logistic Drivers and more.
           </CardDescription>
           <div className="mt-10">
-            <Button className="blue-red-gradient">Get Started <ArrowBigRight /></Button>
+            <Link to="/docs">
+              <Button className="blue-red-gradient">Get Started <ArrowBigRight /></Button>
+            </Link>
           </div>
         </div>
         <div className="border border-red-300 p-3 rounded-lg">
@@ -65,6 +67,7 @@ export default function WelcomePage() {
         </CardContent>
         <div className="px-2">
           <Button 
+          id="topup-button"
           variant="link" 
           className="text-blue-400 font-bold flex justify-center"
           onClick={() => setTopupModalOpen(true)}

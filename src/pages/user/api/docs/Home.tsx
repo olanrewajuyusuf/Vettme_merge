@@ -1,10 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRightIcon } from "@radix-ui/react-icons";
 import { Link } from "react-router-dom";
-export default function Home() {
+export default function APIDocsHome() {
   return (
     <div className="h-full pb-10">
-      <h1 className="text-2xl font-semibold mb-6">Vettme Docs</h1>
+      <h1 className="text-2xl font-semibold mb-6">Vettme API Docs</h1>
 
       <p className="mb-6">Welcome to the Vettme API Documentation!</p>
       <p className="mb-6">
@@ -22,7 +22,7 @@ export default function Home() {
       </p>
 
       <div className="flex justify-end w-full mt-[150px]">
-        <Link to="/docs/keywords">
+        <Link to="/api-docs/keywords">
           <Button variant="ghost">
             Keyword Definition <ArrowRightIcon />
           </Button>

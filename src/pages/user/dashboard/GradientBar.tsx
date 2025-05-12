@@ -1,8 +1,8 @@
 export default function GradientBar({ values }: { values: number[] }) {
     const gradient = `linear-gradient(to right, 
-      red 0% ${values[0]}%, 
-      purple ${values[0]}% ${values[0] + values[1]}%, 
-      blue ${values[0] + values[1]}% 100%)`;
+      #f93663 0% ${values[0]}%, 
+      #894eb3 ${values[0]}% ${values[0] + values[1]}%, 
+      #3c7ade ${values[0] + values[1]}% 100%)`;
   
     return (
       <div

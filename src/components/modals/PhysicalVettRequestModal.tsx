@@ -55,13 +55,6 @@ export default function PhysicalVettRequestModal({
       return toast.error("Please select at least one person to verify.");
     }
 
-    console.log({
-        responseId: state.id,
-        cost: totalPrice,
-        ...selections,
-      });
-    
-
     setIsLoading(true);
 
     try {
@@ -146,10 +139,10 @@ export default function PhysicalVettRequestModal({
 
                 {/* Guarantors */}
                 {[
-                { index: 1, key: "guarantor1lAddress" },
-                { index: 2, key: "guarantor2lAddress" },
-                { index: 3, key: "guarantor3lAddress" },
-                { index: 4, key: "guarantor4lAddress" },
+                { index: 1, key: "guarantor1Address" },
+                { index: 2, key: "guarantor2Address" },
+                { index: 3, key: "guarantor3Address" },
+                { index: 4, key: "guarantor4Address" },
                 ].map(({ index, key }) => {
                 const fname = state[`giFirstName${index}`];
                 if (!fname) return null;

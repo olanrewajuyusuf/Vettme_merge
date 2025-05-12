@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { useFetchCardData } from "@/hooks/company";
 import { DashboardCard, DashboardCardAPI } from "./DashboardCard";
 import GradientBar from "./GradientBar";
+import { useFetchRecentActivities } from "@/hooks/app/apps";
 
 interface CardProps {
   verified: number,
@@ -19,6 +20,7 @@ interface CardProps {
 
 export default function Dashboard() {
   const { data: verifications } = useFetchUserVerifications();
+  const { data: recent} = useFetchRecentActivities();
   const { fetchCardData } = useFetchCardData();
   const [cardData, setCardData] = useState<CardProps | null>(null);
 
@@ -42,10 +44,14 @@ export default function Dashboard() {
     return vett.status === "failure";
   });
 
+  // Getting API data
+  const sandbox = recent?.filter((r: any) => r.sandbox).length || 0;
+  const live = recent?.filter((r: any) => r.live).length || 0;
+
   function calculatePercentages(): number[] {
     const basicValue = verifications?.length || 0;
     const proValue = (cardData?.verified || 0) + (cardData?.inprogress || 0) + (cardData?.pending || 0) + (cardData?.failed || 0);
-    const apiValue = (cardData?.verified || 0) + (cardData?.inprogress || 0) + (cardData?.pending || 0) + (cardData?.failed || 0);
+    const apiValue = sandbox + live;
     const values = [basicValue, proValue, apiValue];
 
     const total = values.reduce((sum, val) => sum + val, 0);
@@ -90,9 +96,9 @@ export default function Dashboard() {
       icon={<FaLaptopCode />}
       name="Vettme API" 
       color="text-blue-500"
-      total={(cardData?.verified || 0) + (cardData?.inprogress || 0) + (cardData?.pending || 0) + (cardData?.failed || 0)}
-      live={cardData?.verified || 0}
-      sandbox={cardData?.inprogress || 0}
+      total={sandbox + live}
+      live={live}
+      sandbox={sandbox}
       />
     </div>
     </>

@@ -19,6 +19,17 @@ import Activation from "@/pages/docs/Activation";
 import DocVerification from "@/pages/docs/Verification";
 import Addresses from "@/pages/user/pro/addresses/Addresses";
 import { APIEnvProvider } from "./context/APIEnvContext";
+import APIDocLayout from "@/layouts/APIDocsLayout";
+import Keywords from "@/pages/user/api/docs/Keywords";
+import AppId from "@/pages/user/api/docs/AppId";
+import ApiKey from "@/pages/user/api/docs/ApiKey";
+import AccountNumber from "@/pages/user/api/docs/AccountNumber";
+import Bvn from "@/pages/user/api/docs/Bvn";
+import Live from "@/pages/user/api/docs/Live";
+import Sandbox from "@/pages/user/api/docs/Sandbox";
+import Nin from "@/pages/user/api/docs/Nin";
+import PhoneNumber from "@/pages/user/api/docs/PhoneNumber";
+import Vin from "@/pages/user/api/docs/Vin";
 
 const ConfirmMail = lazy(() => import("@/pages/user/auth/ConfirmMail"));
 const ForgotPasswordMail = lazy(() => import("@/pages/user/auth/ForgotPasswordMail"));
@@ -62,6 +73,7 @@ const NotFound = lazy(() => import("@/pages/misc/NotFound"));
 
 // Docs
 const DocHome = lazy(() => import("@/pages/docs/Home"));
+const APIDocsHome = lazy(() => import("@/pages/user/api/docs/Home"));
 
 // Back Office
 const BackOfficeDashboard = lazy(() => import("@/pages/back-office/dashboard/Dashboard"));
@@ -387,6 +399,62 @@ export const routes = [
       },
     ],
   },
+
+  {
+    path: "api-docs",
+    element: (
+      <APIDocLayout>
+        <DocIndex />
+      </APIDocLayout>
+    ),
+    children: [
+      {
+        path: "",
+        element: <APIDocsHome />,
+      },
+      {
+        path: "keywords",
+        element: <Keywords />,
+      },
+      {
+        path: "app_id",
+        element: <AppId />,
+      },
+      {
+        path: "api_key",
+        element: <ApiKey />,
+      },
+      {
+        path: "sandbox",
+        element: <Sandbox />,
+      },
+      {
+        path: "live",
+        element: <Live />,
+      },
+      {
+        path: "bvn",
+        element: <Bvn />,
+      },
+      {
+        path: "nin",
+        element: <Nin />,
+      },
+      {
+        path: "phone_number",
+        element: <PhoneNumber />,
+      },
+      {
+        path: "account_number",
+        element: <AccountNumber />,
+      },
+      {
+        path: "vin",
+        element: <Vin />,
+      },
+    ],
+  },
+
   {
     path: "*",
     element: <NotFound />,

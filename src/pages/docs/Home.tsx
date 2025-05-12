@@ -3,7 +3,7 @@ import { ArrowRightIcon } from "@radix-ui/react-icons";
 import { Link } from "react-router-dom";
 export default function Home() {
   return (
-    <div className="h-full pb-10">
+    <div id="introduction" className="h-full scroll-mt-24 py-8">
       <h1 className="text-2xl font-semibold mb-6">Vettme Docs</h1>
 
       <p className="mb-6">Welcome to the Vettme Pro Documentation!</p>

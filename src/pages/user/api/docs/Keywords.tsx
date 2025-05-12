@@ -51,13 +51,13 @@ export default function Keywords() {
       </div>
 
       <div className="flex justify-between items-center pt-10">
-        <Link to="/docs">
+        <Link to="/api-docs">
           <Button variant="ghost">
             <ArrowLeftIcon /> Introduction
           </Button>
         </Link>
 
-        <Link to="/docs/app_id">
+        <Link to="/api-docs/app_id">
           <Button variant="ghost">
             Application ID
             <ArrowRightIcon />

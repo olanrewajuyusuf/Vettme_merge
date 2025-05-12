@@ -64,7 +64,7 @@ const PromptModal: React.FC<PromptModalProps> = ({ onClose }) => {
         });
       }
     }
-  }, [step]);
+  }, [step, currentStep.targetId]);
 
   const handleNext = () => {
     if (step < steps.length - 1) {

@@ -159,7 +159,7 @@ const Addresses = () => {
                     <p>Manage all your physical address verifications here.</p>
                 </div>
                 <div className="w-[200px] bg-white p-3 rounded-md border border-stroke-clr">
-                    <p>Download the verified Addresses bellow.</p>
+                    <p>Download the verified Addresses below.</p>
                     <Button
                         onClick={() => downloadExcel()}
                         className="blue-blue-gradient text-white font-bold py-2 px-4 rounded mt-3 flex items-center gap-1"

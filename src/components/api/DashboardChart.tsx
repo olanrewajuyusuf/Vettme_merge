@@ -10,6 +10,8 @@ import moment from "moment";
 
 export default function DashboardChart() {
   const { isLoading, data: recent} = useFetchRecentActivities();
+  console.log(recent, "recent data");
+  
   
   const currentYear = new Date().getFullYear();
 

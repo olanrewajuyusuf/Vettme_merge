@@ -196,7 +196,7 @@ export default function DashboardLayout({ children }: LayoutProps) {
                                 className={({ isActive }) =>
                                   `block text-sm px-4 py-2 rounded-md ${
                                     isActive
-                                      ? "text-blue-600 font-medium bg-blue-50"
+                                      ? "text-blue-600 font-medium bg-blue-50 shadow-sm shadow-blue-400"
                                       : "text-gray-600 hover:bg-gray-50"
                                   }`
                                 }
@@ -210,7 +210,7 @@ export default function DashboardLayout({ children }: LayoutProps) {
                                 className={({ isActive }) =>
                                   `block text-sm px-4 py-2 rounded-md ${
                                     isActive
-                                      ? "text-blue-600 font-medium bg-blue-50"
+                                      ? "text-blue-600 font-medium bg-blue-50 shadow-sm shadow-blue-400"
                                       : "text-gray-600 hover:bg-gray-50"
                                   }`
                                 }
@@ -267,7 +267,6 @@ export default function DashboardLayout({ children }: LayoutProps) {
               </div>
             <div className="flex items-center gap-1">
               <div 
-              id="topup-button"
               onClick={() => setTopupModalOpen(true)}
               className="bg-green-600 rounded-full px-2 py-0 h-7 flex items-center overflow-hidden"
               >
