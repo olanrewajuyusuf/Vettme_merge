@@ -182,7 +182,7 @@ a.nav-link.active .nav-icon {
   }
 
   .text-input {
-    @apply w-full h-[50px] border-[1px] border-stroke-clr rounded-[10px] text-black bg-white p-4;
+    @apply w-full h-[50px] border-[1px] border-stroke-clr rounded-[10px] !text-black bg-white p-4 placeholder:!text-gray-600;
   }
 }
 
