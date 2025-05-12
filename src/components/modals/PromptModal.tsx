@@ -30,6 +30,11 @@ const steps = [
     description: "Check notifications for updates and alerts.",
     targetId: "notification-button",
   },
+  {
+    title: "Dashboad Assistant",
+    description: "Chat with bot to give you insight of the app.",
+    targetId: "chat-button",
+  },
 ];
 
 const PromptModal: React.FC<PromptModalProps> = ({ onClose }) => {
@@ -47,24 +52,48 @@ const PromptModal: React.FC<PromptModalProps> = ({ onClose }) => {
     if (el) {
       const rect = el.getBoundingClientRect();
       setHighlightRect(rect);
-
-      const spaceBelow = window.innerHeight - rect.bottom;
+  
       const tooltipHeight = 150;
       const tooltipWidth = 300;
-
-      if (spaceBelow > tooltipHeight + 20) {
-        setTooltipPos({
-          top: rect.bottom + 10,
-          left: Math.min(rect.left, window.innerWidth - tooltipWidth - 10),
-        });
+  
+      const isNearLeft = rect.left < window.innerWidth / 2;
+      const isNearBottom = rect.top > window.innerHeight / 2;
+  
+      let top: number;
+      let left: number;
+  
+      // Default placement: bottom of target
+      top = rect.bottom + 10;
+      left = rect.left;
+  
+      if (isNearBottom && isNearLeft) {
+        // Sidebar (bottom-left corner): place tooltip at top-right of the target
+        top = rect.top - tooltipHeight - 10;
+        left = rect.right + 10;
+      } else if (isNearBottom) {
+        // Bottom-right: show top-left
+        top = rect.top - tooltipHeight - 10;
+        left = rect.left - tooltipWidth - 10;
+      } else if (!isNearLeft) {
+        // Top-right: show bottom-left
+        top = rect.bottom + 10;
+        left = rect.left - tooltipWidth - 10;
       } else {
-        setTooltipPos({
-          top: rect.top,
-          left: rect.right + 10,
-        });
+        // Top-left: show bottom-right
+        top = rect.bottom + 10;
+        left = rect.right + 10;
       }
+  
+      // Clamp to screen
+      top = Math.max(10, Math.min(top, window.innerHeight - tooltipHeight - 10));
+      left = Math.max(10, Math.min(left, window.innerWidth - tooltipWidth - 10));
+  
+      setTooltipPos({ top, left });
     }
   }, [step, currentStep.targetId]);
+  
+  
+  
 
   const handleNext = () => {
     if (step < steps.length - 1) {

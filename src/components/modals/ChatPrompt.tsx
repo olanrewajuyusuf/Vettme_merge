@@ -121,7 +121,7 @@ export default function ChatPrompt() {
   }, [messages]);
 
   return (
-    <div className={`chat-prompt-container ${isOpen ? 'open' : ''}`}>
+    <div id='chat-button' className={`chat-prompt-container ${isOpen ? 'open' : ''}`}>
       {isOpen ? (
         <div className="chat-window">
           <div className="chat-header">
